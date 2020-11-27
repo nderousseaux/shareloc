@@ -38,7 +38,7 @@ public class UserRoute {
 	@POST
 	@Path("/signin")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response signin(@QueryParam("login") String login, @QueryParam("password") String password) {
+	public Response signin(@QueryParam("email") String login, @QueryParam("password") String password) {
 		User u = ControllerUser.login(login, password);
 
 		if (u != null)
@@ -50,7 +50,7 @@ public class UserRoute {
 	@POST
 	@Path("/signup")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response signup(@QueryParam("login") String login, @QueryParam("password") String password,
+	public Response signup(@QueryParam("email") String login, @QueryParam("password") String password,
 			@QueryParam("firstname") String firstname, @QueryParam("lastname") String lastname) {
 		if (ControllerUser.createUser(login, password, firstname, lastname))
 			return Response.status(Status.CREATED).build();

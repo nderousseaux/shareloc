@@ -1,12 +1,20 @@
 package dao;
 import java.util.List;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 
 public abstract class DAOFacade<T> {
@@ -42,11 +50,21 @@ public abstract class DAOFacade<T> {
         
 	}
 
-	public void create(T entite) {	
-		getEntityManager().getTransaction().begin();
-    	getEntityManager().persist(entite);
-    	getEntityManager().flush();
-    	getEntityManager().getTransaction().commit();
+	public void create(T entite) {
+		
+		try {
+			UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+			transaction.begin();
+			getEntityManager().joinTransaction();
+			//getEntityManager().getTransaction().begin();
+	    	getEntityManager().persist(entite);
+	    	getEntityManager().flush();
+	    	transaction.commit();
+		} catch (Exception e) {
+	        throw new IllegalArgumentException(e.getMessage());
+		}
+		
+		
 	}
 
 }

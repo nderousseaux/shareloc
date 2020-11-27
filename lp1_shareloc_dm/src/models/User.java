@@ -4,11 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name="User")
 public class User {
 	@Id
-	private String login;
+	private String email;
 	private String password;
 	private String lastname;
 	private String firstname;
@@ -18,18 +19,18 @@ public class User {
 	
 	public User(String login, String password, String lastname, String firstname) {
 		super();
-		this.login = login;
+		this.email = login;
 		this.password = password;
 		this.lastname = lastname;
 		this.firstname = firstname;
 	}
 
 	public String getLogin() {
-		return login;
+		return email;
 	}
 
 	public void setLogin(String login) {
-		this.login = login;
+		this.email = login;
 	}
 
 	public String getPassword() {
