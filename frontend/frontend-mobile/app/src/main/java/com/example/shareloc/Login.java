@@ -6,6 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+
+import static com.example.shareloc.api.signin;
 
 public class Login extends AppCompatActivity {
 
@@ -14,16 +19,28 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        findViewById(R.id.btnSignin).setOnClickListener(view -> clickLogin(view));
 
-        Button btnOk = findViewById(R.id.btnSignin);
+        findViewById(R.id.btnSignup).setOnClickListener(view -> clickSignup());
+    }
 
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //On crée une activité
-                Intent login = new Intent(Login.this, MainActivity.class);
-                startActivity(login);
-            }
-        });
+    public void clickLogin(View view){
+        String username = ((EditText)findViewById(R.id.edTEmail)).getText().toString();
+        String password = ((EditText)findViewById(R.id.edtPassword)).getText().toString();
+
+
+        //On connecte l'utilisateur
+        try{
+            signin(username, password, view);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    protected void clickSignup(){
+        //On crée une activité
+        Intent signup = new Intent(Login.this, Signup.class);
+        startActivity(signup);
     }
 }

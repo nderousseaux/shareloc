@@ -16,6 +16,22 @@
         android:src="@drawable/testimony" />
 
     <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/edtLastname"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Lastname"
+        android:inputType="textPersonName" />
+
+    <EditText
         android:id="@+id/edTEmail"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -36,20 +52,20 @@
         android:layout_height="50dp" />
 
     <Button
-        android:id="@+id/btnSignin"
+        android:id="@+id/btnSignup"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Signin" />
+        android:text="Signup" />
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="25dp" />
 
     <Button
-        android:id="@+id/btnSignup"
+        android:id="@+id/btnSignin"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#F0838383"
-        android:text="Signup"
+        android:text="Signin"
         android:textSize="12sp" />
 </LinearLayout>
