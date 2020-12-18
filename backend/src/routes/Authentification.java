@@ -11,29 +11,30 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.SecurityContext;
 
 import controllers.ControllerUser;
 import models.User;
 import security.JWTokenUtility;
 import security.SigninNeeded;
 
+import javax.ws.rs.core.SecurityContext;
+
 @Path("/")
-public class UserRoute {
+public class Authentification {
 
 	@GET
 	@SigninNeeded
 	@Path("/whoami")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response whoami(@Context SecurityContext security) {
-		try {
-			System.err.println(">> whoami");
-			User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+		String username = security.getUserPrincipal().getName();
+		User user = ControllerUser.getUser(username);
+		if (user!=null)
 			return Response.ok().entity(user).build();
-		} catch (NullPointerException e) {
-			return Response.status(Status.NO_CONTENT).build();
-		}
+		return Response.status(Status.NO_CONTENT).build();
 	}
+
+
 
 	@POST
 	@Path("/signin")

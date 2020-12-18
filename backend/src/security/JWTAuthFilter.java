@@ -18,7 +18,7 @@ import org.jose4j.jwt.consumer.InvalidJwtException;
 import org.jose4j.jwt.consumer.JwtConsumer;
 import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 
-import routes.UserRoute;
+import routes.Authentification;
 
 @Provider
 @SigninNeeded
@@ -53,7 +53,7 @@ public class JWTAuthFilter implements ContainerRequestFilter {
 
 						@Override
 						public boolean isUserInRole(String role) {
-							List<String> roles = UserRoute.findUserRoles(subject);
+							List<String> roles = Authentification.findUserRoles(subject);
 							if (roles != null)
 								return roles.contains(role);
 							return false;
