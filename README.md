@@ -1,25 +1,10 @@
 # lp1_shareloc_dm
 
-## Description des entités
+Sujet : https://docs.google.com/document/d/1O9Cfxe6QZ-yc6G4GovpEqzZk6cyP_nfo3nQCdmnhhQA/edit
 
-### User
+Une colocation est géré par un ou plusieurs manageurs, seuls eux peuvent ajouter ou supprimer des utilisateurs de la colocation.
 
-Un user dispose :
-
-- D'un email (le login)
-- D'un password
-- D'un nom
-- D'un prénom
+Seuls les bénéficiaires peuvent valider ou refuser un service rendu. Si un seul des bénéficiaires valide, le service est validé. Inversement si un seul des bénéficiaires réfute, le service est refusé.
 
 
-
-## Description des routes
-
-### User
-
-**POST /signup** : Creer un utilisateur (données dans le body)
-
-**POST /signin**: Se connecter (données dans le body)
-
-**POST /user/ 
 
