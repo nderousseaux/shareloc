@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-import static com.example.shareloc.api.signin;
+import static com.example.shareloc.Api.signin;
 
 public class Login extends AppCompatActivity {
 
