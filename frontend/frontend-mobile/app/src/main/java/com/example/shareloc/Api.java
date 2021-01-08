@@ -13,7 +13,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-public class api { //TODO: En cours
+public class Api { //TODO: En cours
 
     private static String SERVER_URL = "https://130.79.80.40:1568/lp1_shareloc_dm/shareloc_api/";
 

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import static com.example.shareloc.api.signup;
+import static com.example.shareloc.Api.signup;
 
 public class Signup extends AppCompatActivity {
 
