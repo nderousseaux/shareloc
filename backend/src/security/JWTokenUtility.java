@@ -14,7 +14,7 @@ public class JWTokenUtility {
     public static String buildJWT(String subject) {
         RsaJsonWebKey rsaJsonWebKey = RsaKeyProducer.produce();
 
-        // création du payload - la donnée à crypter, ici 'subject'
+        // création de la "charge utile" ou payload - la donnée à crypter, ici 'subject'
         JwtClaims claims = new JwtClaims();
         claims.setSubject(subject);
 

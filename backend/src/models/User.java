@@ -1,17 +1,34 @@
 package models;
 
 import javax.persistence.Entity;
+import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Column;
+
+
+
+@NamedQueries({
+	@NamedQuery(name="User.getUserByLogin", query="SELECT u FROM User u WHERE u.email = :email"),
+})
 
 
 @Entity
 @Table(name="User")
-public class User {
+
+public class User implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(name ="email")
 	private String email;
+	@Column(name ="password")
 	private String password;
+	@Column(name ="lastname")
 	private String lastname;
+	@Column(name ="firstname")
 	private String firstname;
 
 	public User() {	

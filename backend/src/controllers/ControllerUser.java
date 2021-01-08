@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.List;
+import javax.persistence.Query;
 
 import dao.UserDao;
 import models.User;
@@ -17,12 +18,24 @@ public class ControllerUser {
 		if (login == null)
 			return null;
 
-		User u = daoUser.find(login);
+		User u = getUserByLogin(login);
 		return u;
 	}
+	
+	public static User getUserByLogin(String email) {
+		try {
+			User u = (User) daoUser.getEntityManager().createNamedQuery("User.getUserByLogin").setParameter("email", email).getResultList().get(0);
+			return u;
+		}catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+	}
+
+	
+
 
 	public static User login(String login, String password) {
-		User u = daoUser.find(login);
+		User u = getUserByLogin(login);
 		if (u != null && u.getPassword().equals(password))
 			return u;
 		return null;

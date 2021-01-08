@@ -29,6 +29,7 @@ public class RsaKeyProducer {
 			}
 		}
 
+		System.out.println("RSA Key setup... " + theOne);
 		return theOne;
 	}
 }

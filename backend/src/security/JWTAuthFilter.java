@@ -26,7 +26,7 @@ public class JWTAuthFilter implements ContainerRequestFilter {
 
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
-		
+
 		String authHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 		if (authHeader == null)
 			throw new NotAuthorizedException("Bearer");

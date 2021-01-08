@@ -27,12 +27,14 @@ public class Authentification {
 	@Path("/whoami")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response whoami(@Context SecurityContext security) {
-		String username = security.getUserPrincipal().getName();
-		User user = ControllerUser.getUser(username);
-		if (user!=null)
+		System.out.println(security);
+		System.out.println(security.getUserPrincipal());
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+		if (user != null)
 			return Response.ok().entity(user).build();
 		return Response.status(Status.NO_CONTENT).build();
 	}
+
 
 
 

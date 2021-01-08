@@ -12,15 +12,14 @@ public class JWTResponseFilter implements ContainerResponseFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
-        // si l'authentification a échoué, on quitte le filtre
-    	if (requestContext.getProperty("auth-failed") != null) {
+    	// si l'authentification a réussi, on recopie le JWT dans la réponse
+        if (requestContext.getProperty("auth-failed") != null) {
             Boolean failed = (Boolean) requestContext.getProperty("auth-failed");
             if (failed) {
                 return;
             }
         }
-        
-    	// si l'authentification a réussi, on recopie le JWT dans la réponse
+
         List<Object> jwt = new ArrayList<Object>();
         jwt.add(JWTokenUtility.buildJWT(requestContext.getSecurityContext().getUserPrincipal().getName()));
         jwt.add(requestContext.getHeaderString("Authorization").split(" ")[1]);
