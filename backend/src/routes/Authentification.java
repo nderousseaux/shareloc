@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -17,6 +18,8 @@ import models.User;
 import security.JWTokenUtility;
 import security.SigninNeeded;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import javax.ws.rs.core.SecurityContext;
 
 @Path("/")
@@ -27,8 +30,6 @@ public class Authentification {
 	@Path("/whoami")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response whoami(@Context SecurityContext security) {
-		System.out.println(security);
-		System.out.println(security.getUserPrincipal());
 		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
 		if (user != null)
 			return Response.ok().entity(user).build();
@@ -42,7 +43,8 @@ public class Authentification {
 	@Path("/signin")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response signin(@QueryParam("email") String login, @QueryParam("password") String password) {
-		User u = ControllerUser.login(login, password);
+		String sha256hex = DigestUtils.sha256Hex(password);
+		User u = ControllerUser.login(login, sha256hex);
 
 		if (u != null)
 			return Response.ok().entity(JWTokenUtility.buildJWT(u.getLogin())).build();
@@ -50,12 +52,15 @@ public class Authentification {
 		return Response.status(Status.NOT_ACCEPTABLE).build();
 	}
 
-	@POST
+	@PUT
 	@Path("/signup")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response signup(@QueryParam("email") String login, @QueryParam("password") String password,
-			@QueryParam("firstname") String firstname, @QueryParam("lastname") String lastname) {
-		if (ControllerUser.createUser(login, password, firstname, lastname))
+			@QueryParam("firstname") String firstname,  @QueryParam("lastname") String lastname) {
+		
+		System.out.println(password);
+		String sha256hex = DigestUtils.sha256Hex(password);
+		if (ControllerUser.createUser(login, sha256hex, firstname, lastname))
 			return Response.status(Status.CREATED).build();
 		return Response.status(Status.CONFLICT).build();
 
