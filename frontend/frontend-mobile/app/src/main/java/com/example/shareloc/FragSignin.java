@@ -60,9 +60,11 @@ public class FragSignin extends Fragment {
             Log.e("success Response", response);
             sharedPreferences.edit().putString("token", response).apply();
 
-            // On redémarre l'activité d'authentification pour tester le token et récupérer les informations de l'utilisateur (nom, prénom, ...)
-            Intent authenticationActivity = new Intent(getActivity(), Authentication.class);
-            startActivity(authenticationActivity);
+            // On redirige sur whoami pour tester le token et récupérer les informations de l'utilisateur (nom, prénom, ...)
+            FragmentManager manager = getParentFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.frameLayout, new FragWhoami());
+            transaction.commit();
 
         }, error -> {
             Log.e("error Response", error.toString());
@@ -80,24 +82,4 @@ public class FragSignin extends Fragment {
         transaction.replace(R.id.frameLayout, new FragSignup());
         transaction.commit();
     }
-
-    /*
-    public void clickSigninApiFile() {
-        String email = ((EditText)viewSignin.findViewById(R.id.edtEmail)).getText().toString();
-        String password = ((EditText)viewSignin.findViewById(R.id.edtPassword)).getText().toString();
-
-        //On connecte l'utilisateur
-        try{
-            signinJson(email, password, viewSignin);
-            signinString(email, password, viewSignin);
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void responseSigninApiFile() {
-
-    }
-    */
 }

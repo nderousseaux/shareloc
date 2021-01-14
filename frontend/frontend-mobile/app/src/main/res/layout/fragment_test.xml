@@ -6,13 +6,13 @@
     android:backgroundTint="#FFA000"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".FragStart">
+    tools:context=".ui.test.TestFragment">
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tvUser"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:text="Checking authentication..." />
+        android:textSize="20sp"
+        android:text="This is test fragment"/>
 
 </LinearLayout>
