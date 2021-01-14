@@ -52,14 +52,13 @@ public class FragWhoami extends Fragment {
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
         String url = SERVER_URL + "whoami";
-        Log.e("url", url);
 
         JsonObjectRequest whoamiRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             Log.e("success Response", response.toString());
 
             // On stocke les informations de l'utilisateur
             try {
-                User.getInstance().setUser(response.getString("login"), response.getString("lastname"),response.getString("firstname"));
+                User.getInstance().setUser(response.getString("email"), response.getString("lastname"),response.getString("firstname"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
