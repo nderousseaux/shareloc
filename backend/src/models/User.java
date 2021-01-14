@@ -34,20 +34,20 @@ public class User implements Serializable{
 	public User() {	
 	}
 	
-	public User(String login, String password, String lastname, String firstname) {
+	public User(String email, String password, String lastname, String firstname) {
 		super();
-		this.email = login;
+		this.email = email;
 		this.password = password;
 		this.lastname = lastname;
 		this.firstname = firstname;
 	}
 
-	public String getLogin() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setLogin(String login) {
-		this.email = login;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {

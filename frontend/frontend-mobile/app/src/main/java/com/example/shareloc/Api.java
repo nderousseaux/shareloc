@@ -14,7 +14,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Api {
 
-    public static String SERVER_URL = "http://cdad172.iutrs.unistra.fr:8080/lp1_shareloc_dm/shareloc_api/";
+    public static String SERVER_URL = "http://192.168.0.11:8080/lp1_shareloc_dm/shareloc_api/";
 
     /*
     public static void signinJson (String email, String password, View v) {

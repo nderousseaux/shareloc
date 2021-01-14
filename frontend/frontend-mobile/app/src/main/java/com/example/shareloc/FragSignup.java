@@ -54,7 +54,7 @@ public class FragSignup extends Fragment {
         String url = SERVER_URL + "signup?email=" + email + "&lastname=" +  lastname + "&password=" + password + "&firstname=" + firstname;
         Log.e("url", url);
 
-        StringRequest signupRequest = new StringRequest(Request.Method.POST, url, response -> {
+        StringRequest signupRequest = new StringRequest(Request.Method.PUT, url, response -> {
             Log.e("success Response", response);
 
             // On affiche un message pour dire c'est bon et on redirige sur signin

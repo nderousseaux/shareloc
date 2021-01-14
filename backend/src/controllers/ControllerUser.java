@@ -31,9 +31,6 @@ public class ControllerUser {
 		}
 	}
 
-	
-
-
 	public static User login(String login, String password) {
 		User u = getUserByLogin(login);
 		if (u != null && u.getPassword().equals(password))
@@ -49,5 +46,13 @@ public class ControllerUser {
 		}
 		return false;
 	}
+	
+	public static boolean modifyUser(String mail, User user) {
+		return daoUser.updateUser(mail, user);
+
+	}
+	
+	
+	
 
 }

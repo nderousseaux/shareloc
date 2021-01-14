@@ -15,7 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @NamedQueries({
-	@NamedQuery(name="coloc_user.getColocsByUser", query="SELECT uc FROM UserColocation uc WHERE uc.user.email = :user"),
+	@NamedQuery(name="coloc_user.getColocsByUser", query="SELECT uc.colocation FROM UserColocation uc WHERE uc.user.email = :user"),
+	@NamedQuery(name="coloc_user.getUserByColoc", query="SELECT uc.user FROM UserColocation uc WHERE uc.colocation.idColocation = :colocation"),
 })
 
 
@@ -28,7 +29,7 @@ public class UserColocation implements Serializable{
 	@Id
 	@ManyToOne 
 	@JoinColumn(nullable = false, name = "idColocation")
-	private Colocation coloc;
+	private Colocation colocation;
 
 	@Id
 	@ManyToOne 
@@ -44,17 +45,17 @@ public class UserColocation implements Serializable{
 	
 	public UserColocation(Colocation coloc, User user, boolean isManager) {
 		super();
-		this.coloc = coloc;
+		this.colocation = coloc;
 		this.user = user;
 		this.isManager = isManager;
 	}
 	
 	public Colocation getColoc() {
-		return coloc;
+		return colocation;
 	}
 
 	public void setColoc(Colocation coloc) {
-		this.coloc = coloc;
+		this.colocation = coloc;
 	}
 
 	public User getUser() {
