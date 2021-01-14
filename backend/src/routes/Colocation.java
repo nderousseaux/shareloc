@@ -28,6 +28,7 @@ import javax.ws.rs.core.SecurityContext;
 
 @Path("/colocation")
 public class Colocation {
+	
 
 	@GET
 	@SigninNeeded
@@ -59,54 +60,54 @@ public class Colocation {
 	public Response getColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc) {
 		
 		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
-		
 		if (coloc == null)
 			return Response.status(Status.NO_CONTENT).build();
-
 		
-		//Get user from colocation
-		List<User> users = ControllerColocation.getUserFromColoc(idColoc);
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
 		
-		//On vérifie que l'user est dans la coloc
-		Boolean isIn = false;
-		for(User user : users) {
-			System.out.println(security.getUserPrincipal().getName());
-			if (user.getEmail().equals(security.getUserPrincipal().getName()))
-				isIn = true;
-		}
 		
-		if (!isIn)
-			return Response.status(Status.UNAUTHORIZED).build();
-				
-		return Response.ok().entity(coloc).build();
+		if(ControllerColocation.isInColocation(user, coloc))
+			return Response.ok().entity(coloc).build();
+		return Response.status(Status.UNAUTHORIZED).build();
+		
 	}
+	
+	@POST
+	@SigninNeeded
+	@Path("/{idColoc}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response setColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc, models.Colocation colocation) {
+		
+		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
+		if (coloc == null)
+			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+
+		if(ControllerColocation.isManagerInColocation(user, coloc)) {
+			ControllerColocation.modifyColoc(idColoc, colocation);
+			return Response.ok().build();
+		}
+		return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
 	
 	@GET
 	@SigninNeeded
-	@Path("/{idColoc}/users")
+	@Path("/{idColoc}/user")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUsersByColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc) {
+	public Response getUsersByColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc, models.Colocation colocation) {
 		
 		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
-		
 		if (coloc == null)
 			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
 
-		
-		//Get user from colocation
-		List<User> users = ControllerColocation.getUserFromColoc(idColoc);
-		
-		//On vérifie que l'user est dans la coloc
-		Boolean isIn = false;
-		for(User user : users) {
-			System.out.println(security.getUserPrincipal().getName());
-			if (user.getEmail().equals(security.getUserPrincipal().getName()))
-				isIn = true;
+		if(ControllerColocation.isInColocation(user, coloc)) {
+			return Response.ok().entity(user).build();
 		}
-		
-		if (!isIn)
-			return Response.status(Status.UNAUTHORIZED).build();
-				
-		return Response.ok().entity(users).build();
+		return Response.status(Status.UNAUTHORIZED).build();
 	}
 }

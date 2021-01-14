@@ -1,7 +1,10 @@
 package controllers;
 
 import java.util.List;
+
+import javax.naming.InitialContext;
 import javax.persistence.Query;
+import javax.transaction.UserTransaction;
 
 import dao.UserDao;
 import models.User;
@@ -48,7 +51,21 @@ public class ControllerUser {
 	}
 	
 	public static boolean modifyUser(String mail, User user) {
-		return daoUser.updateUser(mail, user);
+		try {
+			UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+			transaction.begin();
+			
+			daoUser.getEntityManager().joinTransaction();
+			
+			Query query = daoUser.getEntityManager().createQuery("UPDATE User u SET u.lastname = :lastname, u.firstname = :firstname, u.password = :password WHERE u.email = :email");
+			query.setParameter("lastname", user.getLastname()).setParameter("firstname", user.getFirstname()).setParameter("password", user.getPassword()).setParameter("email", mail).executeUpdate();
+			transaction.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 
 	}
 	
