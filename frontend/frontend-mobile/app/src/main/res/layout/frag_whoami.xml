@@ -6,7 +6,7 @@
     android:backgroundTint="#FFA000"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".FragStart">
+    tools:context=".FragWhoami">
 
     <TextView
         android:layout_width="match_parent"

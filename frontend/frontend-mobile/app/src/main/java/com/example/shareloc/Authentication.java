@@ -43,49 +43,11 @@ public class Authentication extends AppCompatActivity {
             transaction.commit();
         }
 
-        // Check the token
+        // Check the token, start whoami
         else {
             FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.frameLayout, new FragStart());
+            transaction.replace(R.id.frameLayout, new FragWhoami());
             transaction.commit();
-
-            RequestQueue queue = Volley.newRequestQueue(this);
-            String url = SERVER_URL + "whoami";
-            Log.e("url", url);
-
-            JsonObjectRequest whoamiRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
-                Log.e("success Response", response.toString());
-
-                // On stocke les informations de l'utilisateur
-                try {
-                    User.getInstance().setUser(response.getString("login"), response.getString("lastname"),response.getString("firstname"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                // On démarre l'activité principale
-                Intent mainActivity = new Intent(Authentication.this, MainActivity.class);
-                startActivity(mainActivity);
-            }, error -> {
-                Log.e("error Response", error.toString());
-
-                // On affiche un message d'erreur
-                Toast.makeText(this, "Error : Authentication failed", Toast.LENGTH_SHORT).show();
-
-                // On affiche signin
-                FragmentTransaction transactionBis = manager.beginTransaction();
-                transactionBis.replace(R.id.frameLayout, new FragSignin());
-                transactionBis.commit();
-            }) {
-                // On met le token dans le header de la requête
-                @Override
-                public Map<String, String> getHeaders() {
-                    Map<String, String> headers = new HashMap<>();
-                    headers.put("Authorization", "Bearer " + token);
-                    return headers;
-                }
-            };
-            queue.add(whoamiRequest);
         }
     }
 }
