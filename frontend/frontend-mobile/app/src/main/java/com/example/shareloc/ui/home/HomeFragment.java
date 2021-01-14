@@ -1,9 +1,12 @@
 package com.example.shareloc.ui.home;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.shareloc.Authentication;
 import com.example.shareloc.R;
+import com.example.shareloc.models.User;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
 
@@ -30,6 +37,26 @@ public class HomeFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        // On affiche le nom et le prénom de l'utilisateur
+        TextView tvUser = root.findViewById(R.id.tvUser);
+        tvUser.setText(User.getInstance().toString());
+
+        // Bouton Signout
+        Button btnSignout = root.findViewById(R.id.btnSignout);
+        btnSignout.setOnClickListener(view -> clickSignout());
+
         return root;
+    }
+
+    public void clickSignout() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", MODE_PRIVATE);
+        sharedPreferences.edit().putString("token", null).apply();
+        User.getInstance().deleteUser();
+
+        // On démarre l'activité d'Authentification
+        Intent authenticationActivity = new Intent(getActivity(), Authentication.class);
+        startActivity(authenticationActivity);
+        getActivity().finish();
     }
 }

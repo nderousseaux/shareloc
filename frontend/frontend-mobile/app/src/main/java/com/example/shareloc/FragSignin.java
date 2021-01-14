@@ -1,17 +1,27 @@
 package com.example.shareloc;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import static com.example.shareloc.Api.signin;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.shareloc.Api.SERVER_URL;
 
 public class FragSignin extends Fragment {
 
@@ -38,16 +48,30 @@ public class FragSignin extends Fragment {
     }
 
     public void clickSignin() {
-        String username = ((EditText)viewSignin.findViewById(R.id.edTEmail)).getText().toString();
+        String email = ((EditText)viewSignin.findViewById(R.id.edtEmail)).getText().toString();
         String password = ((EditText)viewSignin.findViewById(R.id.edtPassword)).getText().toString();
 
-        //On connecte l'utilisateur
-        try{
-            signin(username, password, viewSignin);
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", MODE_PRIVATE);
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url = SERVER_URL + "signin?email=" + email + "&password=" + password;
+        Log.e("url", url);
+
+        StringRequest signinRequest = new StringRequest(Request.Method.POST, url, response -> {
+            Log.e("success Response", response);
+            sharedPreferences.edit().putString("token", response).apply();
+
+            // On redémarre l'activité d'authentification pour tester le token et récupérer les informations de l'utilisateur (nom, prénom, ...)
+            Intent authenticationActivity = new Intent(getActivity(), Authentication.class);
+            startActivity(authenticationActivity);
+
+        }, error -> {
+            Log.e("error Response", error.toString());
+            sharedPreferences.edit().putString("token", null).apply();
+
+            // On affiche un message d'erreur
+            Toast.makeText(getContext(), "Error : Wrong email or password", Toast.LENGTH_SHORT).show();
+        });
+        queue.add(signinRequest);
     }
 
     protected void clickSignup() {
@@ -56,4 +80,24 @@ public class FragSignin extends Fragment {
         transaction.replace(R.id.frameLayout, new FragSignup());
         transaction.commit();
     }
+
+    /*
+    public void clickSigninApiFile() {
+        String email = ((EditText)viewSignin.findViewById(R.id.edtEmail)).getText().toString();
+        String password = ((EditText)viewSignin.findViewById(R.id.edtPassword)).getText().toString();
+
+        //On connecte l'utilisateur
+        try{
+            signinJson(email, password, viewSignin);
+            signinString(email, password, viewSignin);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void responseSigninApiFile() {
+
+    }
+    */
 }

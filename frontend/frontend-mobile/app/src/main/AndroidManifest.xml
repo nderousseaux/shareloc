@@ -11,13 +11,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ShareLoc">
-        <activity android:name=".Signup" />
-        <activity android:name=".Login" />
-        <activity android:name=".Authentication">
+        android:theme="@style/Theme.ShareLoc"
+        android:usesCleartextTraffic="true" > <!-- com.android.volley.NoConnectionError: java.io.IOException: Cleartext HTTP traffic to cdad172.iutrs.unistra.fr not permitted -->
+        <activity
+            android:name=".Authentication"
+            android:noHistory="true"> <!-- On détruit l'activité quand elle n'est plus affichée -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
