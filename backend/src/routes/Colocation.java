@@ -91,8 +91,7 @@ public class Colocation {
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
-	
-	
+
 	@GET
 	@SigninNeeded
 	@Path("/{idColoc}/user")
@@ -106,8 +105,30 @@ public class Colocation {
 		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
 
 		if(ControllerColocation.isInColocation(user, coloc)) {
-			return Response.ok().entity(user).build();
+			return Response.ok().entity(ControllerColocation.getUserFromColoc(coloc.getId())).build();
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
+	
+	@POST
+	@SigninNeeded
+	@Path("/{idColoc}/quit")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response quitColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc) {
+		
+		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
+		if (coloc == null)
+			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+
+		if(ControllerColocation.isInColocation(user, coloc)) {
+			if(ControllerColocation.quit(user, coloc))
+				return Response.ok().build();
+		}
+		return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	//Quitter la coloc, impossible si on est le seul manager et qu'il reste d'autres personnes dedans.
+	//(Uniquement si l'utilisateur est dans la coloc)
 }

@@ -65,6 +65,58 @@ public class ControllerColocation {
 
 	}
 	
+	public static boolean quit(User u, Colocation c) {
+		
+		boolean canQuit = true; 
+		//On se demande si il est manager
+		//Si oui On compte le nombre de manager dans la coloc
+		if(isManagerInColocation(u, c)) {
+			
+			List<UserColocation> ucs = daoUserColoc.findAll();
+			System.out.println(c.getId());
+			
+			//On compte
+			int nbManager = 0;
+			for(UserColocation uc : ucs) {
+				if (uc.getIsManager() && uc.getColoc().getId() == c.getId())
+					nbManager++;
+				System.out.println(uc.getIsManager());
+				System.out.println(uc.getColoc().getId());
+				System.out.println(nbManager);
+			}
+			
+			System.out.println(nbManager);
+			
+			if(nbManager <=1) {
+				System.out.println("lla");
+				canQuit = false;
+			}
+			
+		}
+		
+		if (canQuit) {
+			System.out.println("lla aussi");
+			try {
+				UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+				transaction.begin();
+			
+				daoColoc.getEntityManager().joinTransaction();
+		
+				Query query = daoColoc.getEntityManager().createQuery("DELETE FROM UserColocation uc WHERE uc.colocation.idColocation = :colocId AND uc.user.email = :email");
+				query.setParameter("email", u.getEmail()).setParameter("colocId", c.getId()).executeUpdate();
+				transaction.commit();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+				throw new IllegalArgumentException();
+			}
+			
+			return true;
+		}
+		return false;
+			
+	}
+	
 	public static boolean isInColocation(User u, Colocation c) {
 		//Get user from colocation
 		List<User> users = ControllerColocation.getUserFromColoc(c.getId());

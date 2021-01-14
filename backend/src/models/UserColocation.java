@@ -50,6 +50,8 @@ public class UserColocation implements Serializable{
 		this.isManager = isManager;
 	}
 	
+
+	
 	public Colocation getColoc() {
 		return colocation;
 	}

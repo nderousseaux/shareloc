@@ -66,5 +66,20 @@ public abstract class DAOFacade<T> {
 		
 		
 	}
+	
+	public void remove(T entite) {
+		try {
+			UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+			transaction.begin();
+			
+			getEntityManager().joinTransaction();
+			getEntityManager().remove(getEntityManager().merge(entite));
+			transaction.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}	
+
 
 }
