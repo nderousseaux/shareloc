@@ -11,4 +11,5 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_test">Test</string>
+    <string name="menu_flatsharing">Flatsharing</string>
 </resources>
