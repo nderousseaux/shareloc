@@ -71,31 +71,13 @@ public class ControllerColocation {
 		//On se demande si il est manager
 		//Si oui On compte le nombre de manager dans la coloc
 		if(isManagerInColocation(u, c)) {
-			
-			List<UserColocation> ucs = daoUserColoc.findAll();
-			System.out.println(c.getId());
-			
-			//On compte
-			int nbManager = 0;
-			for(UserColocation uc : ucs) {
-				if (uc.getIsManager() && uc.getColoc().getId() == c.getId())
-					nbManager++;
-				System.out.println(uc.getIsManager());
-				System.out.println(uc.getColoc().getId());
-				System.out.println(nbManager);
-			}
-			
-			System.out.println(nbManager);
-			
-			if(nbManager <=1) {
-				System.out.println("lla");
+			if(ControllerManager.nbManager(c)<=1) {
 				canQuit = false;
 			}
 			
 		}
 		
 		if (canQuit) {
-			System.out.println("lla aussi");
 			try {
 				UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
 				transaction.begin();
