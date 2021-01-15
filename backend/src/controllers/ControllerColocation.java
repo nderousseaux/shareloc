@@ -114,10 +114,19 @@ public class ControllerColocation {
 		catch(Exception e) {
 			e.printStackTrace();
 			throw new IllegalArgumentException();
-		}		
+		}
 	}
 	
-	public static boolean isInColocation(User u, Colocation c) {
+	public static void addUser(Colocation c, User u) {
+		daoUserColoc.create(new UserColocation(c, u, false));
+	}
+	
+	public static void delUser(Colocation c, User u) {
+		UserColocation uc = ControllerManager.getOneUserColoc(c, u)  ;  
+		daoUserColoc.remove(uc);
+	}
+	
+	public static boolean isInColocation(User u, Colocation c) { 
 		//Get user from colocation
 		List<User> users = ControllerColocation.getUserFromColoc(c.getId());
 				

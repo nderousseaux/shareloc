@@ -92,24 +92,6 @@ public class Colocation {
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
-
-	@GET
-	@SigninNeeded
-	@Path("/{idColoc}/user")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUsersByColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc, models.Colocation colocation) {
-		
-		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
-		if (coloc == null)
-			return Response.status(Status.NO_CONTENT).build();
-		
-		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
-
-		if(ControllerColocation.isInColocation(user, coloc)) {
-			return Response.ok().entity(ControllerColocation.getUserFromColoc(coloc.getId())).build();
-		}
-		return Response.status(Status.UNAUTHORIZED).build();
-	}
 	
 	@POST
 	@SigninNeeded
@@ -135,7 +117,6 @@ public class Colocation {
 	@Path("/{idColoc}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc) {
-		System.out.println("aaa");
 		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
 		if (coloc == null)
 			return Response.status(Status.NO_CONTENT).build();
@@ -148,5 +129,77 @@ public class Colocation {
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
+	
+	@GET
+	@SigninNeeded
+	@Path("/{idColoc}/user")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getUsersByColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc, models.Colocation colocation) {
+		
+		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
+		if (coloc == null)
+			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+
+		if(ControllerColocation.isInColocation(user, coloc)) {
+			return Response.ok().entity(ControllerColocation.getUserFromColoc(coloc.getId())).build();
+		}
+		return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	@PUT
+	@SigninNeeded
+	@Path("/{idColoc}/user/{email}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addUserToColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc, @PathParam("email") String email) {
+		
+		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
+		if (coloc == null)
+			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+
+		User futurUser = ControllerUser.getUser(email);
+
+		
+		if(ControllerColocation.isManagerInColocation(user, coloc) && !ControllerColocation.isInColocation(futurUser, coloc)) {
+			ControllerColocation.addUser(coloc, futurUser);
+			return Response.ok().build();
+		}
+		return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	@DELETE
+	@SigninNeeded
+	@Path("/{idColoc}/user/{email}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response removeUserToColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc, @PathParam("email") String email) {
+		
+		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
+		if (coloc == null)
+			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+
+		User futurUser = ControllerUser.getUser(email);
+
+		System.out.println("a");
+		if(ControllerColocation.isManagerInColocation(user, coloc)) {
+			System.out.println("b");
+			if(ControllerColocation.isInColocation(futurUser, coloc)) {
+				System.out.println("c");
+				if(!ControllerColocation.isManagerInColocation(futurUser, coloc)) {
+					System.out.println("d");
+					ControllerColocation.delUser(coloc, futurUser);
+					return Response.ok().build();
+				}
+			}
+			
+		}
+		return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	
 
 }
