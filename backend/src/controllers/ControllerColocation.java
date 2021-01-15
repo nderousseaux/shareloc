@@ -99,6 +99,24 @@ public class ControllerColocation {
 			
 	}
 	
+	public static void deleteColocation(Colocation c) {
+		
+		try {
+			UserTransaction transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+			transaction.begin();
+		
+			daoColoc.getEntityManager().joinTransaction();
+	
+			Query query = daoColoc.getEntityManager().createQuery("DELETE FROM UserColocation uc WHERE uc.colocation.idColocation = :colocId ");
+			query.setParameter("colocId", c.getId()).executeUpdate();
+			transaction.commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException();
+		}		
+	}
+	
 	public static boolean isInColocation(User u, Colocation c) {
 		//Get user from colocation
 		List<User> users = ControllerColocation.getUserFromColoc(c.getId());

@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -129,6 +130,23 @@ public class Colocation {
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
 	
-	//Quitter la coloc, impossible si on est le seul manager et qu'il reste d'autres personnes dedans.
-	//(Uniquement si l'utilisateur est dans la coloc)
+	@DELETE
+	@SigninNeeded
+	@Path("/{idColoc}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc) {
+		System.out.println("aaa");
+		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
+		if (coloc == null)
+			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+
+		if(ControllerColocation.isManagerInColocation(user, coloc)) {
+			ControllerColocation.deleteColocation(coloc);
+			return Response.ok().build();
+		}
+		return Response.status(Status.UNAUTHORIZED).build();
+	}
+
 }
