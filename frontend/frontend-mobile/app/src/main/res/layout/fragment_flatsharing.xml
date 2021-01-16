@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flatsharing_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#FFA000"
@@ -9,16 +10,50 @@
     tools:context=".ui.flatsharing.FlatsharingFragment">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:textSize="20sp"
-        android:text="Add a flatsharing :"/>
+        android:text="Select the flatsharing in the list:" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <Spinner
+        android:id="@+id/spinFlatsharing"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="50sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:id="@+id/tvFlatsharing"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Add a flatsharing :" />
 
     <EditText
         android:id="@+id/edtAddFlatsharing"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:hint="Flatsharing name"
         android:inputType="text" />
     <Button
