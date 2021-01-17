@@ -1,31 +1,16 @@
 package com.example.shareloc.models;
 
-// Classe singleton qui stocke les informations de l'utilisateur connecté
-public class User {
+// Classe User simple
+public class UserBis {
 
     private String email;
     private String lastname;
     private String firstname;
 
-    private static User instance = null;
-
-    private User() {}
-
-    public static User getInstance() {
-        if(instance == null) {
-            instance = new User();
-        }
-        return instance;
-    }
-
-    public void deleteUser() {
-        instance = null;
-    }
-
-    public void setUser(String email, String lastname, String firstname) {
-        setEmail(email);
-        setLastname(lastname);
-        setFirstname(firstname);
+    public UserBis(String email, String lastname, String firstname) {
+        this.email = email;
+        this.lastname = lastname;
+        this.firstname = firstname;
     }
 
     public String getEmail() {
@@ -50,6 +35,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "Bienvenue " + firstname + " " + lastname;
+        return "Email " + email + " / firstname " + firstname + " / lastname " + lastname;
     }
 }

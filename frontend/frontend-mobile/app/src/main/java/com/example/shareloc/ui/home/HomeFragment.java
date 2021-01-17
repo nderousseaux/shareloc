@@ -48,8 +48,6 @@ public class HomeFragment extends Fragment {
 
     private View viewHome;
 
-    private List<Flatsharing> flatsharingsList = null;
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewHome = inflater.inflate(R.layout.fragment_home, container, false);
 
@@ -88,7 +86,7 @@ public class HomeFragment extends Fragment {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             Log.e("success Response", response.toString());
 
-            flatsharingsList = new ArrayList<Flatsharing>();
+            List<Flatsharing> flatsharingsList = new ArrayList<Flatsharing>();
 
             for (int i = 0; i < response.length(); i++) {
                 try {
@@ -101,14 +99,12 @@ public class HomeFragment extends Fragment {
             }
 
             Spinner spinner = viewHome.findViewById(R.id.spinFlatsharing);
-            ArrayAdapter<String> adapter;
-            List<String> list;
 
-            list = new ArrayList<String>();
+            List<String> list = new ArrayList<String>();
             for ( Flatsharing f : flatsharingsList) {
                 list.add(f.getName());
             }
-            adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 
@@ -144,6 +140,7 @@ public class HomeFragment extends Fragment {
         queue.add(request);
     }
 
+    // On créer une colocation
     public void clickAdd() {
         String name = ((EditText)viewHome.findViewById(R.id.edtAddFlatsharing)).getText().toString();
 
