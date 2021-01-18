@@ -16,10 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -84,7 +81,7 @@ public class HomeFragment extends Fragment {
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
-            Log.e("success Response", response.toString());
+            Log.e("success getFlatsharings", response.toString());
 
             List<Flatsharing> flatsharingsList = new ArrayList<Flatsharing>();
 
@@ -124,7 +121,7 @@ public class HomeFragment extends Fragment {
                 public void onNothingSelected(AdapterView<?> parent) { }
             });
         }, error -> {
-            Log.e("error Response", error.toString());
+            Log.e("error getFlatsharings", error.toString());
 
             // On affiche un message d'erreur
             Toast.makeText(getContext(), "Error : no flatsharings or could not get them", Toast.LENGTH_SHORT).show();
@@ -160,15 +157,15 @@ public class HomeFragment extends Fragment {
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
         JsonObjectRequest request = new JsonNoResponseRequest(Request.Method.PUT, url, body, response -> {
-            Log.e("success Response", response == null ? "null" : response.toString());
+            Log.e("success addFlatsharing", response == null ? "null" : response.toString());
 
             // On affiche un message pour dire c'est bon
-            Toast.makeText(getContext(), "Flatsharing created, select it in the list", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Flatsharing " + name + " created, select it in the list", Toast.LENGTH_SHORT).show();
 
             // Met à jour la liste des colocations dans le spinner
             getFlatsharings();
         }, error -> {
-            Log.e("error Response", error.toString());
+            Log.e("error addFlatsharing", error.toString());
 
             // On affiche un message d'erreur
             Toast.makeText(getContext(), "Error : network error", Toast.LENGTH_SHORT).show();

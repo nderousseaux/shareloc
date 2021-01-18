@@ -50,6 +50,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "Bienvenue " + firstname + " " + lastname;
+        return "Welcome " + firstname + " " + lastname;
     }
 }

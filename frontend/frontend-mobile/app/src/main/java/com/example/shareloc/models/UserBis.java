@@ -35,6 +35,6 @@ public class UserBis {
 
     @Override
     public String toString() {
-        return "Email " + email + " / firstname " + firstname + " / lastname " + lastname;
+        return firstname + " " + lastname;
     }
 }

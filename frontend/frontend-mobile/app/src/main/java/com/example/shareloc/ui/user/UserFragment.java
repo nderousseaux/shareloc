@@ -8,10 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +20,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.shareloc.MainActivity;
 import com.example.shareloc.R;
-import com.example.shareloc.models.Flatsharing;
 import com.example.shareloc.models.User;
 import com.example.shareloc.models.UserBis;
 import com.example.shareloc.volley.JsonNoResponseRequest;
@@ -41,40 +38,68 @@ public class UserFragment extends Fragment {
 
     private View viewUser;
 
+    private List<UserBis> usersList = null;
+
+    private List<UserBis> managersList = null;
+
+    private boolean isUsersListLoaded = false;
+
+    private boolean isManagersListLoaded = false;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewUser = inflater.inflate(R.layout.fragment_user, container, false);
 
         TextView tvUserList = viewUser.findViewById(R.id.tvUserList);
-        tvUserList.setText("Membres de la colocation " + ((MainActivity)getActivity()).getSelectedFlatsharing().getName());
+        tvUserList.setText("Members of the flatsharing " + ((MainActivity)getActivity()).getSelectedFlatsharing().getName());
 
-        getUsers();
-
-        isManager();
+        resetView();
 
         viewUser.findViewById(R.id.btnAddUser).setOnClickListener(view -> clickAddUser());
 
         return viewUser;
     }
 
-    // On récupère la liste des membres de la colocation et on les affichent dans le listView
-    public void getUsers() {
+    // Actualise le fragment quand un manager fait un changement (ajout d'un membre, promouvoir un membre manager, ...)
+    public void resetView () {
+        usersList = null;
+        managersList = null;
+        isUsersListLoaded = false;
+        isManagersListLoaded = false;
+        viewUser.findViewById(R.id.layoutAddUser).setVisibility(View.INVISIBLE);
+        loadUsers();
+        loadManagers();
+        // On lance le rendu de l'interface dans une des méthode load... quand les données sont récupérées
+    }
+
+    // Récupère les membres de la colocation et les enregistre dans l'attribut privée usersList
+    public void loadUsers () {
         String token = ((MainActivity)getActivity()).getToken();
         int idFlatsharing = ((MainActivity)getActivity()).getSelectedFlatsharing().getId();
         String url = SERVER_URL + "colocation/" + idFlatsharing + "/user";
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
-            Log.e("success Response", response.toString());
+            Log.e("success loadUsers", response.toString());
 
-            // La réponse est OK
-            // Afficher la liste des utilisateurs dans un listView
-            Toast.makeText(getContext(), "TODO : Afficher la liste des users", Toast.LENGTH_SHORT).show();
+            // On récupère la liste des membres
+            usersList = new ArrayList<UserBis>();
+            for (int i = 0; i < response.length(); i++) {
+                try {
+                    JSONObject obj = response.getJSONObject(i);
+                    UserBis u = new UserBis(obj.getString("email"), obj.getString("lastname"), obj.getString("firstname"));
+                    usersList.add(u);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            isUsersListLoaded = true;
+            // Lance peut être le rendu de l'interface
+            if(isUsersListLoaded && isManagersListLoaded) {
+                displayUi();
+            }
         }, error -> {
-            Log.e("error Response", error.toString());
-
-            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-
+            Log.e("error loadUsers", error.toString());
         }) {
             @Override
             public Map<String, String> getHeaders() {
@@ -86,18 +111,18 @@ public class UserFragment extends Fragment {
         queue.add(request);
     }
 
-    // On vérifie si l'utilisateur est manager, si oui on affiche le formulaire permettant d'ajouter un membre à la colocation, sinon le formulaire reste caché
-    public void isManager() {
+    // Récupère les managers de la colocation et les enregistre dans l'attribut privée managersList
+    public void loadManagers () {
         String token = ((MainActivity)getActivity()).getToken();
         int idFlatsharing = ((MainActivity)getActivity()).getSelectedFlatsharing().getId();
         String url = SERVER_URL + "colocation/" + idFlatsharing + "/manager";
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
-            Log.e("success Response", response.toString());
+            Log.e("success loadManagers", response.toString());
 
             // On récupère la liste des managers
-            List<UserBis> managersList = new ArrayList<UserBis>();
+            managersList = new ArrayList<UserBis>();
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject obj = response.getJSONObject(i);
@@ -108,26 +133,13 @@ public class UserFragment extends Fragment {
                 }
             }
 
-            // On vérifie que l'utilisateur est dans la liste
-            boolean isManager = false;
-            String email = User.getInstance().getEmail();
-            for ( UserBis u : managersList) {
-                if (u.getEmail().equals(email)) {
-                    isManager = true;
-                }
+            isManagersListLoaded = true;
+            // Lance peut être le rendu de l'interface
+            if(isUsersListLoaded && isManagersListLoaded) {
+                displayUi();
             }
-
-            if(isManager) {
-                Toast.makeText(getContext(), "Tu est manager :)", Toast.LENGTH_SHORT).show();
-
-                // On affiche le formulaire d'ajout de membre
-                viewUser.findViewById(R.id.layoutAddUser).setVisibility(View.VISIBLE);
-            }
-            else Toast.makeText(getContext(), "Tu n'est pas manager :(", Toast.LENGTH_SHORT).show();
         }, error -> {
-            Log.e("error Response", error.toString());
-
-            Toast.makeText(getContext(), "Error : " + error.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("error loadManagers", error.toString());
         }) {
             @Override
             public Map<String, String> getHeaders() {
@@ -139,7 +151,27 @@ public class UserFragment extends Fragment {
         queue.add(request);
     }
 
-    // On ajoute un utilisateur à la colocation
+    public void displayUi() {
+        displayUserslist();
+        displayAddUser();
+    }
+
+    // https://appsandbiscuits.com/listview-tutorial-android-12-ccef4ead27cc
+    // On affiche la liste des membres, avec des boutons removeUser / promoteManager si manager
+    public void displayUserslist () {
+        ListView lvUserList = viewUser.findViewById(R.id.lvUserList);
+        CustomListViewUserAdapter adapter = new CustomListViewUserAdapter(getActivity(), this, usersList, managersList);
+        lvUserList.setAdapter(adapter);
+    }
+
+    // On rend visible le formulaire d'ajout de membre à la colocation si manager
+    public void displayAddUser () {
+        if(isManager(User.getInstance().getEmail())) {
+            viewUser.findViewById(R.id.layoutAddUser).setVisibility(View.VISIBLE);
+        }
+    }
+
+    // On ajoute un utilisateur à la colocation si manager
     public void clickAddUser() {
         String email = ((EditText)viewUser.findViewById(R.id.edtAddUser)).getText().toString();
 
@@ -156,16 +188,16 @@ public class UserFragment extends Fragment {
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
         JsonObjectRequest request = new JsonNoResponseRequest(Request.Method.PUT, url, null, response -> {
-            Log.e("success Response", response == null ? "null" : response.toString());
+            Log.e("success AddUser", response == null ? "null" : response.toString());
 
-            Toast.makeText(getContext(), "User added to the flatsharing", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "User " + email + " added to the flatsharing", Toast.LENGTH_SHORT).show();
 
-            // Met à jour la liste des membres
-            getUsers();
+            // On réactualise le fragement
+            resetView();
         }, error -> {
-            Log.e("error Response", error.toString());
+            Log.e("error AddUser", error.toString());
 
-            Toast.makeText(getContext(), "Error : " + error.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "User email not found or user already in the flatsharing", Toast.LENGTH_SHORT).show();
         }) {
             @Override
             public Map<String, String> getHeaders() {
@@ -175,5 +207,16 @@ public class UserFragment extends Fragment {
             }
         };
         queue.add(request);
+    }
+
+    // On vérifie si l'utilisateur identifié par son email est manager
+    public boolean isManager(String email) {
+        boolean res = false;
+        for ( UserBis u : managersList) {
+            if (u.getEmail().equals(email)) {
+                res = true;
+            }
+        }
+        return res;
     }
 }

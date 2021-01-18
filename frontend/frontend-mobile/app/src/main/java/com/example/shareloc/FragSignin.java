@@ -54,10 +54,9 @@ public class FragSignin extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", MODE_PRIVATE);
         RequestQueue queue = Volley.newRequestQueue(getContext());
         String url = SERVER_URL + "signin?email=" + email + "&password=" + password;
-        Log.e("url", url);
 
         StringRequest signinRequest = new StringRequest(Request.Method.POST, url, response -> {
-            Log.e("success Response", response);
+            Log.e("success signin", response);
             sharedPreferences.edit().putString("token", response).apply();
 
             // On redirige sur whoami pour tester le token et récupérer les informations de l'utilisateur (nom, prénom, ...)
@@ -67,7 +66,7 @@ public class FragSignin extends Fragment {
             transaction.commit();
 
         }, error -> {
-            Log.e("error Response", error.toString());
+            Log.e("error signin", error.toString());
             sharedPreferences.edit().putString("token", null).apply();
 
             // On affiche un message d'erreur

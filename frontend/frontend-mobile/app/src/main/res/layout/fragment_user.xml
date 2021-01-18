@@ -15,6 +15,11 @@
         android:gravity="center"
         android:textSize="20sp" />
 
+    <ListView
+        android:id="@+id/lvUserList"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -52,7 +57,5 @@
             android:text="Add" />
 
     </LinearLayout>
-
-
 
 </LinearLayout>
