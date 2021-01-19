@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
 
         // On affiche le nom et le prénom de l'utilisateur
         TextView tvUser = viewHome.findViewById(R.id.tvUser);
-        tvUser.setText(User.getInstance().toString());
+        tvUser.setText("Welcome " + User.getInstance().toString() + " !");
 
         // Bouton Signout
         Button btnSignout = viewHome.findViewById(R.id.btnSignout);
