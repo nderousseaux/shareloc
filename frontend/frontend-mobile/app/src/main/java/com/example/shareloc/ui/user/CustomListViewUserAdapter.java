@@ -70,7 +70,29 @@ public class CustomListViewUserAdapter extends ArrayAdapter {
 
     // On promouvoit l'utilisateur manager
     public void clickPromoteManager(String email) {
-        //Requête "up to manager"
+        String token = ((MainActivity)activity).getToken();
+        int idFlatsharing = ((MainActivity)activity).getSelectedFlatsharing().getId();
+        String url = SERVER_URL + "colocation/" + idFlatsharing + "/manager/" + email;
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        JsonObjectRequest request = new JsonNoResponseRequest(Request.Method.PUT, url, null, response -> {
+            Log.e("success PromoteManager", response == null ? "null" : response.toString());
+
+            Toast.makeText(getContext(), "User " + email + " promoted manager of the flatsharing", Toast.LENGTH_SHORT).show();
+
+            // On réactualise le fragement
+            fragment.resetView();
+        }, error -> {
+            Log.e("error PromoteManager", error.toString());
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+        queue.add(request);
     }
 
     // On supprime l'utilisateur de la colocation
