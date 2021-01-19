@@ -21,6 +21,7 @@ import controllers.ControllerColocation;
 import controllers.ControllerUser;
 import controllers.ControllerTask;
 import models.User;
+import models.Task;
 import security.JWTokenUtility;
 import security.SigninNeeded;
 
@@ -213,6 +214,26 @@ public class Colocation {
 
 		if(ControllerColocation.isInColocation(user, coloc)) {
 			return Response.ok().entity(ControllerTask.getTasks(coloc)).build();
+
+		}
+		return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	@PUT
+	@SigninNeeded
+	@Path("/{idColoc}/task")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createTask(@Context SecurityContext security, @PathParam("idColoc") int idColoc, Task task) {
+		
+		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
+		if (coloc == null)
+			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+
+		if(ControllerColocation.isInColocation(user, coloc)) {
+			ControllerTask.createTask(coloc, task, user);
+			return Response.ok().build();
 
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
