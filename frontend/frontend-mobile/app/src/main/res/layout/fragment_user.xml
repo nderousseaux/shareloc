@@ -1,61 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:backgroundTint="#FFA000"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".ui.user.UserFragment">
-
-    <TextView
-        android:id="@+id/tvUserList"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="20sp" />
-
-    <ListView
-        android:id="@+id/lvUserList"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="wrap_content" />
+    android:layout_height="match_parent">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/layoutAddUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:backgroundTint="#FFA000"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="invisible">
+        tools:context=".ui.user.UserFragment">
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:layout_height="20dp" />
 
         <TextView
+            android:id="@+id/tvUserList"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="20sp"
-            android:text="Add a user to the flatsharing :" />
+            android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/edtAddUser"
-            android:layout_width="300dp"
+        <ListView
+            android:id="@+id/lvUserList"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="380dp" />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/layoutAddUser"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:hint="Email of the user"
-            android:inputType="text" />
-        <Button
-            android:id="@+id/btnAddUser"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Add" />
+            android:backgroundTint="#FFA000"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="Add a user to the flatsharing :" />
+
+            <EditText
+                android:id="@+id/edtAddUser"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:hint="Email of the user"
+                android:inputType="text" />
+            <Button
+                android:id="@+id/btnAddUser"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Add" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
