@@ -1,4 +1,4 @@
-package com.example.shareloc.volleyrequest;
+package com.example.shareloc.volley;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;

@@ -54,7 +54,7 @@ public class FragWhoami extends Fragment {
         String url = SERVER_URL + "whoami";
 
         JsonObjectRequest whoamiRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
-            Log.e("success Response", response.toString());
+            Log.e("success whoami", response.toString());
 
             // On stocke les informations de l'utilisateur
             try {
@@ -68,7 +68,7 @@ public class FragWhoami extends Fragment {
             startActivity(mainActivity);
 
         }, error -> {
-            Log.e("error Response", error.toString());
+            Log.e("error whoami", error.toString());
 
             // On affiche un message d'erreur
             Toast.makeText(getContext(), "Error : Authentication failed", Toast.LENGTH_SHORT).show();

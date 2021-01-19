@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.shareloc.models.Flatsharing;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -20,6 +21,9 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
+    // Stocke la colocation séléctionné
+    private Flatsharing selectedFlatsharing = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_test, R.id.nav_flatsharing)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_test, R.id.nav_user)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -67,5 +71,13 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
         String token = sharedPreferences.getString("token", null);
         return token;
+    }
+
+    public Flatsharing getSelectedFlatsharing() {
+        return selectedFlatsharing;
+    }
+
+    public void setSelectedFlatsharing(Flatsharing selectedFlatsharing) {
+        this.selectedFlatsharing = selectedFlatsharing;
     }
 }

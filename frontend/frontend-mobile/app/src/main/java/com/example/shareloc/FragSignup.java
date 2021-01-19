@@ -52,10 +52,9 @@ public class FragSignup extends Fragment {
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
         String url = SERVER_URL + "signup?email=" + email + "&lastname=" +  lastname + "&password=" + password + "&firstname=" + firstname;
-        Log.e("url", url);
 
         StringRequest signupRequest = new StringRequest(Request.Method.PUT, url, response -> {
-            Log.e("success Response", response);
+            Log.e("success signup", response);
 
             // On affiche un message pour dire c'est bon et on redirige sur signin
             Toast.makeText(getContext(), "Account created, now signin", Toast.LENGTH_SHORT).show();
@@ -65,7 +64,7 @@ public class FragSignup extends Fragment {
             transaction.commit();
 
         }, error -> {
-            Log.e("error Response", error.toString());
+            Log.e("error signup", error.toString());
 
             // On affiche un message d'erreur
             Toast.makeText(getContext(), "Error : Email address is already used", Toast.LENGTH_SHORT).show();

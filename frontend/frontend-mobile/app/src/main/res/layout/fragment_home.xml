@@ -10,23 +10,75 @@
 
     <TextView
         android:id="@+id/tvUser"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 
     <Button
         android:id="@+id/btnSignout"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="Signout" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Select a flatsharing in the list :" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <Spinner
+        android:id="@+id/spinFlatsharing"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:id="@+id/tvFlatsharing"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Create a flatsharing :" />
+
+    <EditText
+        android:id="@+id/edtAddFlatsharing"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:hint="Flatsharing name"
+        android:inputType="text" />
+    <Button
+        android:id="@+id/btnAddFlatsharing"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Create" />
 </LinearLayout>
