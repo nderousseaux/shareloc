@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response.Status;
 import controllers.ControllerColocation;
 import controllers.ControllerUser;
 import controllers.ControllerTask;
+import controllers.ControllerService;
 import models.User;
 import security.JWTokenUtility;
 import security.SigninNeeded;
@@ -77,5 +78,39 @@ public class Task {
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
+	
+	@POST
+	@SigninNeeded
+	@Path("/{idTask}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createService(@Context SecurityContext security, @PathParam("idTask") int idTask, List<User> beneficiaires) {
+		models.Task t = ControllerTask.getTask(idTask);
+		
+		//Possible que si l'état de la tache est ACTIVE 
+		if(!ControllerTask.getStatus(t).equals("ACTIVE")) {
+			return Response.status(Status.UNAUTHORIZED).build();
+		}
+		
+		models.Colocation coloc = ControllerTask.getColocByTask(t);
+		if (coloc == null)
+			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+
+		//On vérifie que l'user n'est pas dans la liste des bénificiaires
+		for(User u : beneficiaires) {
+			if(u.getEmail() == user.getEmail()) {
+				System.out.println("aaa");
+				return Response.status(Status.UNAUTHORIZED).build();
+			}
+		}
+		
+		if(ControllerColocation.isInColocation(user, coloc)) {
+			ControllerService.createService(t, user, beneficiaires);
+			return Response.ok().build();
+		}
+		return Response.status(Status.UNAUTHORIZED).build();
+	}
+
 
 }
