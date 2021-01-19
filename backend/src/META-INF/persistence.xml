@@ -4,7 +4,8 @@
         <jta-data-source>mysqlressource</jta-data-source>
     	<class>models.User</class>
     	<class>models.Colocation</class>
-    	<class>models.UserColocation</class>    	
+    	<class>models.UserColocation</class>  
+    	<class>models.Task</class>    	
 		<properties>
 				<!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" /> --> 
 				<property name="eclipselink.target-database" value="MySQL"/>

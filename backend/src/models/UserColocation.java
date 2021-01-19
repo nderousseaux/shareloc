@@ -19,7 +19,6 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name="coloc_user.getUserByColoc", query="SELECT uc.user FROM UserColocation uc WHERE uc.colocation.idColocation = :colocation"),
 })
 
-
 @Entity
 @Table(name="UserColocation")
 public class UserColocation implements Serializable{

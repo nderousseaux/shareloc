@@ -83,4 +83,9 @@ public class Authentification {
 		}
 		return Response.status(Status.CONFLICT).build();		
 	}
+	
+	public static List<String> findUserRoles(String user) {
+		return null;
+	}
+
 }

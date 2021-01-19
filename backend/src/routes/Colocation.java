@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response.Status;
 
 import controllers.ControllerColocation;
 import controllers.ControllerUser;
+import controllers.ControllerTask;
 import models.User;
 import security.JWTokenUtility;
 import security.SigninNeeded;
@@ -162,10 +163,11 @@ public class Colocation {
 
 		User futurUser = ControllerUser.getUser(email);
 
-		
-		if(ControllerColocation.isManagerInColocation(user, coloc) && !ControllerColocation.isInColocation(futurUser, coloc)) {
-			ControllerColocation.addUser(coloc, futurUser);
-			return Response.ok().build();
+		if(ControllerColocation.isManagerInColocation(user, coloc)) {
+			if(!ControllerColocation.isInColocation(futurUser, coloc)) {
+				ControllerColocation.addUser(coloc, futurUser);
+				return Response.ok().build();
+			}
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
@@ -184,13 +186,10 @@ public class Colocation {
 
 		User futurUser = ControllerUser.getUser(email);
 
-		System.out.println("a");
+
 		if(ControllerColocation.isManagerInColocation(user, coloc)) {
-			System.out.println("b");
 			if(ControllerColocation.isInColocation(futurUser, coloc)) {
-				System.out.println("c");
 				if(!ControllerColocation.isManagerInColocation(futurUser, coloc)) {
-					System.out.println("d");
 					ControllerColocation.delUser(coloc, futurUser);
 					return Response.ok().build();
 				}
@@ -199,6 +198,26 @@ public class Colocation {
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
+	
+	@GET
+	@SigninNeeded
+	@Path("/{idColoc}/task")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTask(@Context SecurityContext security, @PathParam("idColoc") int idColoc) {
+		
+		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
+		if (coloc == null)
+			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+
+		if(ControllerColocation.isInColocation(user, coloc)) {
+			return Response.ok().entity(ControllerTask.getTasks(coloc)).build();
+
+		}
+		return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
 	
 	
 
