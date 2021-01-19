@@ -49,4 +49,33 @@ public class Task {
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
+	
+
+	@PUT
+	@SigninNeeded
+	@Path("/{idTask}/voteAdd/{isAccept}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getStateTask(@Context SecurityContext security, @PathParam("idTask") int idTask, @PathParam("isAccept") int accept) {
+		boolean isAccept = !(accept==0);
+		
+		models.Task t = ControllerTask.getTask(idTask);
+		
+		//Possible que si l'état de la tache est VOTINGCREATING
+		if(!ControllerTask.getStatus(t).equals("VOTINGCREATING")) {
+			return Response.status(Status.UNAUTHORIZED).build();
+		}
+		
+		models.Colocation coloc = ControllerTask.getColocByTask(t);
+		if (coloc == null)
+			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+
+		if(ControllerColocation.isInColocation(user, coloc)) {
+			ControllerTask.voteAdd(user, t, isAccept);
+			return Response.ok().build();
+		}
+		return Response.status(Status.UNAUTHORIZED).build();
+	}
+
 }

@@ -94,4 +94,8 @@ public class ControllerTask {
 		return retour;
 		
 	}
+	
+	public static void voteAdd(User u, Task t, boolean b) {
+		daoVoteAdd.create(new VoteAdd(t, u, b));
+	}
 }
