@@ -52,6 +52,10 @@ public class Task implements Serializable{
 		this.colocation = colocation;
 	}
 	
+	public int getId() {
+		return this.idTask;
+	}
+	
 	public String getName() {
 		return name;
 	}

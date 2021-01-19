@@ -218,6 +218,7 @@ public class Colocation {
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
+
 	
 	@PUT
 	@SigninNeeded
@@ -238,6 +239,26 @@ public class Colocation {
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
+	
+	@GET
+	@SigninNeeded
+	@Path("/{idColoc}/task/state")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTaskByState(@Context SecurityContext security, @PathParam("idColoc") int idColoc, @QueryParam("state") String state) {
+		
+		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
+		if (coloc == null)
+			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+
+		if(ControllerColocation.isInColocation(user, coloc)) {
+			return Response.ok().entity(ControllerTask.findByStatus(state)).build();
+
+		}
+		return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
 	
 	
 	
