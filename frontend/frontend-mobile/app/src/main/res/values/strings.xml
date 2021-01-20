@@ -12,5 +12,6 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_test">Test</string>
     <string name="menu_user">User</string>
+    <string name="menu_leave_flatsharing">Leave Flatsharing</string>
     <string name="menu_profile">Profile</string>
 </resources>

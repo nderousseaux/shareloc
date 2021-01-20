@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_user" />
 
     <fragment
+        android:id="@+id/nav_leave_flatsharing"
+        android:name="com.example.shareloc.ui.leaveflatsharing.LeaveFlatsharingFragment"
+        android:label="@string/menu_leave_flatsharing"
+        tools:layout="@layout/fragment_leave_flatsharing" />
+
+    <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.shareloc.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"

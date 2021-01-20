@@ -1,11 +1,8 @@
 package com.example.shareloc.ui.profile;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,9 +15,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.shareloc.FragWhoami;
 import com.example.shareloc.MainActivity;
 import com.example.shareloc.R;
 import com.example.shareloc.models.User;
@@ -31,7 +26,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.example.shareloc.Api.SERVER_URL;
 
 public class ProfileFragment extends Fragment {
@@ -49,6 +43,7 @@ public class ProfileFragment extends Fragment {
         return viewProfile;
     }
 
+    // Modifie les informations de l'utilisateur (sauf l'email)
     public void clickModifyProfile() {
         String firstname = ((EditText)viewProfile.findViewById(R.id.edtFirstname)).getText().toString();
         String lastname = ((EditText)viewProfile.findViewById(R.id.edtLastname)).getText().toString();

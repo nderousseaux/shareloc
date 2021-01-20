@@ -50,11 +50,17 @@ public class UserFragment extends Fragment {
         viewUser = inflater.inflate(R.layout.fragment_user, container, false);
 
         TextView tvUserList = viewUser.findViewById(R.id.tvUserList);
-        tvUserList.setText("Members of the flatsharing " + ((MainActivity)getActivity()).getSelectedFlatsharing().getName());
 
-        resetView();
+        // On vérifie si une colocation est séléctionné, sinon on dit que y en a pas
+        if(((MainActivity)getActivity()).getSelectedFlatsharing() != null)
+        {
+            tvUserList.setText("Members of the flatsharing " + ((MainActivity)getActivity()).getSelectedFlatsharing().getName());
 
-        viewUser.findViewById(R.id.btnAddUser).setOnClickListener(view -> clickAddUser());
+            resetView();
+
+            viewUser.findViewById(R.id.btnAddUser).setOnClickListener(view -> clickAddUser());
+        }
+        else tvUserList.setText("No flatsharing found, create one or get invited by someone");
 
         return viewUser;
     }

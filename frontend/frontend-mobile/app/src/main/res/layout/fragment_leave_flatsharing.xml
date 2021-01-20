@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#FFA000"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.leaveflatsharing.LeaveFlatsharingFragment">
+
+    <TextView
+        android:id="@+id/tvLeaveFlatsharing"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/layoutLeaveFlatsharing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFA000"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <Button
+            android:id="@+id/btnLeaveFlatsharing"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Leave the flatsharing" />
+
+        <TextView
+            android:id="@+id/tvLeaveFlatsharingNB"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="NB : you can't leave the flatsharing if you are the last manager" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <TextView
+            android:id="@+id/tvDeleteFlatsharing"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="Or you can delete the flatsharing" />
+
+        <Button
+            android:id="@+id/btnDeleteFlatsharing"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Delete the flatsharing" />
+
+        <TextView
+            android:id="@+id/tvDeleteFlatsharingNB"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="To be able to delete it, you need to be the last in the flatsharing" />
+
+    </LinearLayout>
+
+</LinearLayout>
