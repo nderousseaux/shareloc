@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.naming.InitialContext;
 import javax.persistence.Query;
@@ -23,13 +24,31 @@ public class ControllerService {
 	static BeneficiaireDao daoBenef = new BeneficiaireDao();
 	
 	public static void createService(Task t, User u, List<User> bs) {
-		daoService.create(new Service(t, u, false, new Date()));
+		Service s = new Service(t, u, new Date());
+		
+		daoService.create(s);
 		
 		
 		//On ajoute chacun des bénificiaires
 		for(User b : bs) {
-			daoBenef.create(new Beneficiaire(t, u, b));
+			daoBenef.create(new Beneficiaire(s, b));
 		}
+	}
+	
+	public static List<Service> getServiceWaiting(Colocation c) {
+		
+		List<Service> ss = daoService.findAll();
+		
+		List<Service> retour = new ArrayList<Service>();
+		
+		
+		for(Service s: ss) {
+			if(s.getTask().getColoc().getId() == c.getId() && s.getIsValide() == null) {
+				retour.add(s);
+			}
+		}
+		
+		return retour;
 	}
 	
 }

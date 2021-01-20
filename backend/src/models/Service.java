@@ -18,23 +18,26 @@ import java.util.Date;
 
 
 @Entity
-@Table(name="Service")
+@Table(name="Services")
 public class Service implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name ="id")
+    private Integer id;
+	
 	@ManyToOne 
 	@JoinColumn(nullable = false, name = "idTask")
 	private Task task;
 
-	@Id
 	@ManyToOne 
 	@JoinColumn(nullable = false, name  = "email")
 	private User user;
 
 	@Column(name ="isValide")
-	private boolean isValide;
+	private Boolean isValide;
 	
 	@Column(name ="date")
 	private Date date;
@@ -43,12 +46,15 @@ public class Service implements Serializable{
 	}
 	
 	
-	public Service(Task t, User u, boolean b, Date d) {
+	public Service(Task t, User u, Date d) {
 		super();
 		this.user = u;
 		this.task = t;
 		this.date = d;
-		this.isValide = b;
+	}
+	
+	public Integer getId() {
+		return id;
 	}
 	
 	public User getUser() {
@@ -67,11 +73,11 @@ public class Service implements Serializable{
 		this.task = task;
 	}
 
-	public boolean getIsValide() {
+	public Boolean getIsValide() {
 		return isValide;
 	}
 
-	public void setIsValide(boolean isValide) {
+	public void setIsValide(Boolean isValide) {
 		this.isValide = isValide;
 	}	
 	

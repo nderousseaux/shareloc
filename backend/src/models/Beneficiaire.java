@@ -30,13 +30,8 @@ public class Beneficiaire implements Serializable{
 	
 	
 	@ManyToOne 
-	@JoinColumn(nullable = false, name = "idTask")
-	private Task task;
-
-	
-	@ManyToOne 
-	@JoinColumn(nullable = false, name  = "email")
-	private User user;
+	@JoinColumn(nullable = false, name = "idService")
+	private Service service;
 	
 	
 	@ManyToOne 
@@ -47,11 +42,11 @@ public class Beneficiaire implements Serializable{
 	}
 	
 	
-	public Beneficiaire(Task t, User u, User ub) {
+	public Beneficiaire(Service s, User ub) {
 		super();
-		this.user = u;
+		
 		this.userB = ub;
-		this.task = t;
+		this.service = s;
 
 	}
 	
@@ -59,12 +54,12 @@ public class Beneficiaire implements Serializable{
 		return id;
 	}
 	
-	public User getUser() {
-		return user;
+	public Service getService() {
+		return service;
 	}
 
-	public void setUser(User u) {
-		user = u;
+	public void setService(Service s) {
+		service = s;
 	}
 	
 	public User getBeneficiaire() {
@@ -73,14 +68,6 @@ public class Beneficiaire implements Serializable{
 
 	public void setBeneficiaire(User u) {
 		userB = u;
-	}
-
-	public Task getTask() {
-		return task;
-	}
-
-	public void setTask(Task task) {
-		this.task = task;
 	}
 
 
