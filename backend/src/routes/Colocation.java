@@ -259,6 +259,26 @@ public class Colocation {
 		return Response.status(Status.UNAUTHORIZED).build();
 	}
 	
+	@GET
+	@SigninNeeded
+	@Path("/{idColoc}/{email}/points")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getPoints(@Context SecurityContext security, @PathParam("idColoc") int idColoc, @PathParam("email") String email) {
+		
+		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
+		if (coloc == null)
+			return Response.status(Status.NO_CONTENT).build();
+		
+		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
+		User userb = ControllerUser.getUser(email);
+
+		if(ControllerColocation.isInColocation(user, coloc) && ControllerColocation.isInColocation(userb, coloc)) {
+			return Response.ok().entity(ControllerColocation.getUserColocation(userb, coloc).getPoints()).build();
+
+		}
+		return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
 	
 	
 	

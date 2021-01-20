@@ -127,31 +127,27 @@ public class ControllerColocation {
 	}
 	
 	public static boolean isInColocation(User u, Colocation c) { 
-		//Get user from colocation
-		List<User> users = ControllerColocation.getUserFromColoc(c.getId());
-				
-		//On vérifie que l'user est dans la coloc
-		Boolean isIn = false;
-		for(User user : users) {
-			if (user.getEmail().equals(u.getEmail()))
-				isIn = true;
-		}
-		
-		return isIn;
+		UserColocation uc = getUserColocation(u, c);
+		return uc != null;
 			
 	}
 	
 	public static boolean isManagerInColocation(User u, Colocation c) {
+		UserColocation uc = getUserColocation(u, c);
+		return uc.getIsManager();
+		
+	}
+	
+	public static UserColocation getUserColocation(User u, Colocation c) {
+		
 		List<UserColocation> ucs = daoUserColoc.findAll();
 		
-		//On vérifie que l'user est manager dans la coloc
-		Boolean isIn = false;
 		for(UserColocation uc : ucs) {
-			if (uc.getUser().getEmail().equals(u.getEmail()) && uc.getIsManager() && uc.getColoc().getId() == c.getId())
-				isIn = true;
+			if (uc.getUser().getEmail().equals(u.getEmail()) && uc.getColoc().getId() == c.getId())
+				return uc;
 		}
 		
-		return isIn;
+		return null;
 		
 	}
 	

@@ -100,7 +100,6 @@ public class Task {
 		//On vérifie que l'user n'est pas dans la liste des bénificiaires
 		for(User u : beneficiaires) {
 			if(u.getEmail() == user.getEmail()) {
-				System.out.println("aaa");
 				return Response.status(Status.UNAUTHORIZED).build();
 			}
 		}

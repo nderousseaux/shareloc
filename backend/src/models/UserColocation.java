@@ -38,6 +38,9 @@ public class UserColocation implements Serializable{
 	@Column(name ="isManager")
 	private boolean isManager;
 	
+	@Column(name ="points")
+	private int points;
+	
 	public UserColocation() {
 	}
 	
@@ -73,6 +76,15 @@ public class UserColocation implements Serializable{
 
 	public void setIsManager(boolean isManager) {
 		this.isManager = isManager;
+	}
+	
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}	
+
 
 }
