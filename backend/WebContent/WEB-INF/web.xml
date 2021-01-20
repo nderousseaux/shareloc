@@ -12,6 +12,16 @@
     	</init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <filter>
+    	<filter-name>CorsFilter</filter-name>
+    	<filter-class>routes.CorsResponseFilter</filter-class>
+	</filter>
+  
+  <filter-mapping>
+    <filter-name>CorsFilter</filter-name>
+    <url-pattern>/shareloc_api/*</url-pattern>
+	</filter-mapping>
+    
     <servlet-mapping>
         <servlet-name>RestServerServlet</servlet-name>
         <url-pattern>/shareloc_api/*</url-pattern>
