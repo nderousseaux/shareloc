@@ -1,0 +1,961 @@
+{
+	"info": {
+		"_postman_id": "1f6be659-2f42-4419-8bdf-6eb4a4b6da30",
+		"name": "share_loc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "authentif",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/signup/?email=nathanael.derousseaux@outlook.fra&lastname=Derousseaux&password=admin&firstname=Nathanaël",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"signup",
+								""
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "nathanael.derousseaux@outlook.fra"
+								},
+								{
+									"key": "lastname",
+									"value": "Derousseaux"
+								},
+								{
+									"key": "password",
+									"value": "admin"
+								},
+								{
+									"key": "firstname",
+									"value": "Nathanaël"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"lastname\": \"Derousseaux\",\n    \"firstname\": \"Nathanaël\",\n    \"login\": \"nderousseaux\",\n    \"password\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/signin?email=ttt&password=password",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"signin"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "ttt"
+								},
+								{
+									"key": "password",
+									"value": "password"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "whoami",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhYWEifQ.hXPEAl4ISwl3Epmlx-VqwUEEn7W_vKLt99gLUPKQQDygUJ_icVf1eCF8q2tEIeMuHhOnsMlAz9D7mzcqWuGwRrNqG1TDMtGpdSatoJQrgxBahvLKhbVIcE26bp4ASe1qThWsopRf6ctHLwxJflvg_pBsdeTCvfhzxVyka8PCWP8yrdhg88CCVpXSmRd7L-aTUMz60VRs15jGH5-OiuGhW_thEtMbLMRA_5IZkxv7F937paRDnki7Ay-4tUc03JGPSF61Mj5l7HoKhQWdkklMVQztX0IalFiPtU-eGB0gRua7M2bcEPhDkcs2EgnDaS17shNdNqNH3FAwWCNRjDzpIQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/whoami",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"whoami"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0dHQifQ.VUT7vC5-Tefg3bSSTH4CI7-nh6iV0oTbM1MXmaXEpxvJkxThq3Ss01XJVl8A076hdelmjIzM_EhyQn9bY8YovOdY3hXx9WxYfaNRt_Gf9QnWlXXnY6-A-Lasn6Wl9GokzSpRr9dyeVlvIxydeZfU1bzt3xrdqkZj_N-p630lMily9BZ3UID1PdjaEOg4Wc4pT78gruDKd0jV33K3iWIDKcaDW5caTFRlJSzevAS2tDfi5EiCYJWzKYgnYqPdW7j91JVUdHlo1gdUH9gfID_r9qbQIcamV2utzKZ1kYslOtM-2jFeO_fpg8nEitX4uqAuSDr7_sRyQZkXpHJRZ0hSCA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\":\"Jean\",\n    \"lastname\" :\"Derousseaux\",\n    \"password\" : \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/user",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "colocation",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "Get user by coloc id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0dHQifQ.X2mxl20Yus6Gb9VgqLps7rI2nELQBxFnfw--7w4ZPG3_8m-3GssqTYoolR0hOweYc6rchGPIGMgTYcbt50u_F_VndWrZZyjZ9dHbRlIr5U62OYqUjnpM0ACG0HrKgtyu_qAmmqqfddkk6x58rrYUqMH3KQ6aAt7QY0vUElzE9RWT4VJs1vPldbzBX9X9Z7DE5wwAmc1Wx1jJnE04ft_0-6fAGlph1jwhRSCmcWtDU8_FDvAEkUmdkux_us6LQPXDAvTBRAICftC21cJ_s9QZDy6m_jUFeYHEb9EPCT5BT2xbRdxEcHdocuBffraUY0gK-7GWGEJ9izNjcuGxvnoN6g",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/1/user",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"lp1_shareloc_dm",
+										"shareloc_api",
+										"colocation",
+										"1",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get points user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0dHQifQ.X2mxl20Yus6Gb9VgqLps7rI2nELQBxFnfw--7w4ZPG3_8m-3GssqTYoolR0hOweYc6rchGPIGMgTYcbt50u_F_VndWrZZyjZ9dHbRlIr5U62OYqUjnpM0ACG0HrKgtyu_qAmmqqfddkk6x58rrYUqMH3KQ6aAt7QY0vUElzE9RWT4VJs1vPldbzBX9X9Z7DE5wwAmc1Wx1jJnE04ft_0-6fAGlph1jwhRSCmcWtDU8_FDvAEkUmdkux_us6LQPXDAvTBRAICftC21cJ_s9QZDy6m_jUFeYHEb9EPCT5BT2xbRdxEcHdocuBffraUY0gK-7GWGEJ9izNjcuGxvnoN6g",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/1/ttt/points",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"lp1_shareloc_dm",
+										"shareloc_api",
+										"colocation",
+										"1",
+										"ttt",
+										"points"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ5eXkifQ.JP7ljwJdORTHUWuc8lIofSzMm1XrWslvhc0K9WWZTcsE9Lb8firLRtcbCF9EJ75fhVgvv6qWj2LH3jKsxjX6fMIl1ZintqimUJF3sIZeE_SlynYRMNV_V_TmLwCoACoBaIMsbOvjoytaRDqxFmeX3BFI3By4WtK8nBLrXBnDrxzN7ZqVdeHbHCFM4eLDAcXzaJtvukSPkAlrxzN1oIefsZv99RneQT-AXEUeGkskS4bRT7P7jboDIctpW9Qt2rYLjJxl0YyMLtJThMn8goOlONYl9Aw3I3aUrzJ3Tv8PVN5vdFQasjRf1M7XRBYxD_HCHsSqDZ7ctGw12WsJVwHPEw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/49/user/ttt",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"lp1_shareloc_dm",
+										"shareloc_api",
+										"colocation",
+										"49",
+										"user",
+										"ttt"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "del user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJuYXRoYW5hZWwuZGVyb3Vzc2VhdXhAb3V0bG9vay5mciJ9.gj2NZzsYNJ_k5khKht62c1kOFeZXSGW99e7B5j-aVaRYuG35k0jr7GoVd26OyEeKR9xNR9rwlwUj9LQf1tvXlMroSCdHroeoSjb26wAv-FucGFHu3udbJFgkVTEsicRqbSfy6pS-RPmzFuG5HrKTpH_VNGg7cGhYINkBnbsbyh4LISHkEaVVFWJxWCYWxr9gV2lS0dx6JVZ0bbuu3joZX6X5E9oVhy3EmHhWuwAadm1FZpKOmIh38ZQinmtKi0r_0jcHM3u2DmtjEgpOYGI77EdvtBD_dHq7KxUj9hKK3LMy_zdvdmcbS0O_SPtcRrcXJrqpchFzUAH3tUxXWBEgpA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/11/user/ttt",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"lp1_shareloc_dm",
+										"shareloc_api",
+										"colocation",
+										"11",
+										"user",
+										"ttt"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "manager",
+					"item": [
+						{
+							"name": "get managers",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJuYXRoYW5hZWwuZGVyb3Vzc2VhdXhAb3V0bG9vay5mciJ9.Ryu7cjp9rxjtqEuiEOXWRAxqwgx6jRSPvKdtNb-42rsMMfnX0gyA5mWgjSxmitZrEoP0IDWDJJfQWxOHiPfK-pRfG4z0d6O_xTjb3aABuLjkIxQPx6MQLbvbqT6ZCNldVt0ARy8Xye7PD3GIMkdwM0hv1safO7EjCq3X8UTHJQFUWiDvhJ5XVNBLPSGKAuUTLc-yC-sMt2cX-I1cDfxSKfEvs4z0Hv3FMz4SF6arhkw9x1E5m1t8WgdLPXK6L4f2SUeAjsDm0Tz1j-gJaLY9XgyAUK3J-e96Cok6RTpHrQYxHa8L5Rz_egsUF98MC2FkeSEAtVpBon5t4DdO3H3XHg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/6/manager",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"lp1_shareloc_dm",
+										"shareloc_api",
+										"colocation",
+										"6",
+										"manager"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Up to manager",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0dHQifQ.cwe581O7jLANiT8PPswfaNhkwKz2v_ohkZKBHBCMv7HIPu-lfEQGDDEFlL8jhjBiCQniQAOoO8OBKc-BozV7uyxvV2xuvGIBV42xim-uwgNIFySQ_Xxb0de0XjzRwE_yx6jxlbJ9vITRhDGwViiNlIGsmJ9fJQRn5N7Tb9I5cZ75ZiY3PNXoMdC1MVnlEXftejWU6L0qELx5zpS-ETzLG2H3IP5KBt_p-pDXLmekRPx3m8Gh9PpwCdgd4fCQpfePff3RsiQxXTiqD6RlbzWz7NaQyaLNAEEkuLNUklzqWex_fcUFCOS-Ajt8znLzLeLQ7HrJPDudAZ_k5MdcwoAGxw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/11/manager/nathanael.derousseaux@outlook.fr",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"lp1_shareloc_dm",
+										"shareloc_api",
+										"colocation",
+										"11",
+										"manager",
+										"nathanael.derousseaux@outlook.fr"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete to manager",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJuYXRoYW5hZWwuZGVyb3Vzc2VhdXhAb3V0bG9vay5mciJ9.RhgliuQ3SOS5KcpvfeTvBf3Pt_Tk2DrdXQhO_5XgHK64LhyY7mIE-2t9uRn5sNSfDJstQA9UAuut1W9zKufPAjJoK8CHr1b1I1uzv9ZBtaTF64xvGnCGLgKhgFv877QctRLOu5poqekDvusMVqS5wvjkwdo9Ju3thW6GekMUayjV_D4Yj8QS3bkph_LM3KhIQV3NKKH9ewvl5AchhLqCFMD_EK3kf-LiJwUc8c4GaLbzrIwMiXvzi47bgRybljazY9B91e2x1EgVi9Ra8QISB5iwPKEwdkiLVN8NDObkE7mF6GOkitmAb-N2IpzC6ueMckdJm4WD63MwD3QcwU12Vw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/11/manager",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"lp1_shareloc_dm",
+										"shareloc_api",
+										"colocation",
+										"11",
+										"manager"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get colocations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJuYXRoYW5hZWwuZGVyb3Vzc2VhdXhAb3V0bG9vay5mciJ9.KZhyMKPvtuFsSb-uLXDUg8gscaVdsrW0Vv5-S4exV6syBlAf5DL8SyQp4SLHBh2STZy7RX6ppdcKHljKL-fib3GTVA_lJA9sSZUOw8bkQerEqRFj4oHb-xauV9ffnrxzS-vc62dlfhm9jrd-Y-HlImoqc9Z2f71qHf-yD4sGKUkzV4c1n0w9fgju7s54bWDeBvlJVOkAjpNKPsHolk2AEiBMjwF9KeaxxD-5k-tSr4h3OUZRAhJxpkXdWgimsx6mXQqQVBoMVF_I5Q_F1QizR31Zi77-A5XcgaGha4UWugdRpSDtapIYvIcu0MKY4BXgLuPx-fVQ_ZhDuBMUex5kFw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"colocation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get coloc by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0dHQifQ.Bk_4sN6ouv15u0HQSNFkA_iF1qPc-e9LVPQQCTG0uI4PZP14MgDYF7Ixe4NFYrF-6v1e4AgiNcdrnC72bmyC7RmR1SFwn2J9CcZORPeQIj0Cvi8HI-JmY_E5VuGjOACAd7jTfa0NL3r3VXD2SRfKL_nw-SUwP6x8Dcm91BrHIKQtwzZjf7g8PO4W8ZnZLD_MJwIdOGfhUOTgw-WJuEbDH7ognUKply0niiV3L5I-Kq_AJEKlZ-Fmw5Yk1GXb5eWPRDofofhMcGdhyEiqja_jzwTe8Df3AJi677IND8spSsb59fsLF18fcBKF6fMeaT5inDbs90Vie8Tke4FCNFZ57A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/10",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"colocation",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create coloc",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJuYXRoYW5hZWwuZGVyb3Vzc2VhdXhAb3V0bG9vay5mciJ9.OUVYw3j9i5bWc16R0B08Dx8yljtmPAFI7ppc3mWZFyFm6f4vjUrayeJxjDSE29ncRLOOeKqaPHE01C247BM_nYgnJgP8E_98DfVJNqJktF0UR0pE3q1WfUcfatVD9rcospfhc5svWmORC1G1nlOndzx90hiGI9_YtE_XimmBB7pO3iwyFt7HXdNKycN7ZS6HGSfirvlQO0Ft84d3zxf6w2I6XK6DPbQV0ALkI-_clqdoTLx2KVjEMWrZFthpsIx6e8giehBG8qBZ9Ax2FuYOQf0maY41sbPSuq_GWY3YnHshQgr-TFqs9Wo0HP4NS5_abnsZGiECG3dhu2SiR-lBnw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Coloc ma\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"colocation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Coloc",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0dHQifQ.Bk_4sN6ouv15u0HQSNFkA_iF1qPc-e9LVPQQCTG0uI4PZP14MgDYF7Ixe4NFYrF-6v1e4AgiNcdrnC72bmyC7RmR1SFwn2J9CcZORPeQIj0Cvi8HI-JmY_E5VuGjOACAd7jTfa0NL3r3VXD2SRfKL_nw-SUwP6x8Dcm91BrHIKQtwzZjf7g8PO4W8ZnZLD_MJwIdOGfhUOTgw-WJuEbDH7ognUKply0niiV3L5I-Kq_AJEKlZ-Fmw5Yk1GXb5eWPRDofofhMcGdhyEiqja_jzwTe8Df3AJi677IND8spSsb59fsLF18fcBKF6fMeaT5inDbs90Vie8Tke4FCNFZ57A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Best Coloc :)\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/10",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"colocation",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "QUIT",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0dHQifQ.Bk_4sN6ouv15u0HQSNFkA_iF1qPc-e9LVPQQCTG0uI4PZP14MgDYF7Ixe4NFYrF-6v1e4AgiNcdrnC72bmyC7RmR1SFwn2J9CcZORPeQIj0Cvi8HI-JmY_E5VuGjOACAd7jTfa0NL3r3VXD2SRfKL_nw-SUwP6x8Dcm91BrHIKQtwzZjf7g8PO4W8ZnZLD_MJwIdOGfhUOTgw-WJuEbDH7ognUKply0niiV3L5I-Kq_AJEKlZ-Fmw5Yk1GXb5eWPRDofofhMcGdhyEiqja_jzwTe8Df3AJi677IND8spSsb59fsLF18fcBKF6fMeaT5inDbs90Vie8Tke4FCNFZ57A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Best Coloc :)\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/6/quit",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"colocation",
+								"6",
+								"quit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete coloc",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0dHQifQ.Bk_4sN6ouv15u0HQSNFkA_iF1qPc-e9LVPQQCTG0uI4PZP14MgDYF7Ixe4NFYrF-6v1e4AgiNcdrnC72bmyC7RmR1SFwn2J9CcZORPeQIj0Cvi8HI-JmY_E5VuGjOACAd7jTfa0NL3r3VXD2SRfKL_nw-SUwP6x8Dcm91BrHIKQtwzZjf7g8PO4W8ZnZLD_MJwIdOGfhUOTgw-WJuEbDH7ognUKply0niiV3L5I-Kq_AJEKlZ-Fmw5Yk1GXb5eWPRDofofhMcGdhyEiqja_jzwTe8Df3AJi677IND8spSsb59fsLF18fcBKF6fMeaT5inDbs90Vie8Tke4FCNFZ57A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/10",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"colocation",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Get Tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0dHQifQ.VUT7vC5-Tefg3bSSTH4CI7-nh6iV0oTbM1MXmaXEpxvJkxThq3Ss01XJVl8A076hdelmjIzM_EhyQn9bY8YovOdY3hXx9WxYfaNRt_Gf9QnWlXXnY6-A-Lasn6Wl9GokzSpRr9dyeVlvIxydeZfU1bzt3xrdqkZj_N-p630lMily9BZ3UID1PdjaEOg4Wc4pT78gruDKd0jV33K3iWIDKcaDW5caTFRlJSzevAS2tDfi5EiCYJWzKYgnYqPdW7j91JVUdHlo1gdUH9gfID_r9qbQIcamV2utzKZ1kYslOtM-2jFeO_fpg8nEitX4uqAuSDr7_sRyQZkXpHJRZ0hSCA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/1/task/state?state=REFUSE",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"colocation",
+								"1",
+								"task",
+								"state"
+							],
+							"query": [
+								{
+									"key": "state",
+									"value": "REFUSE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tasks by status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhYWEifQ.JSvuu6ISIrE9zyQtet82Dui0xm2UAqMwaoIowaXqiJqV4Mvg8MtcmXfCDHNAillwW1LiPWo1acAqqfNEhD56lmNqDVeiR3g0_nl3FfoPcrowhwv5DTCOhPAEByYNFuk0FhJVY5D4gHEDS9n4j20g2PxxG02NFDZcMmyIEG2fG2nSKhGNVyC8AVWf7LVhNVRlBxzq17VuGC5JmiJJ4WURc3xikfC3AZKFanUrD_Sh9Dsd2SoBWN-ESTJg0F1swiQ32zz0DI9dtaCgI2hnVzxb2rzlohY7o0V1LABaidoiX40vD7Au4bu_gy6sPIZCZdT4Zi8qybx3OsvnOm1b2kV-1Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/1/task/state?state=REFUSE",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"colocation",
+								"1",
+								"task",
+								"state"
+							],
+							"query": [
+								{
+									"key": "state",
+									"value": "REFUSE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createTask",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0dHQifQ.NReHb2wKmicbQaaOIt_5i4Psub66PX9yXvslxW4A8Wa1YiH6Md4EN3lZlZR4AkQb6SPguWsxqcS5iyilyyWQnBRuSLsx6rPx_PE-H6DplRAB78csgzF7F27Zn14nyGggALH76i0PsShc69R4R4psXjTmW4PRGUxp8nfZeym-pkl2rqHCiz0e95YfMmHYTmHqr-YkdgBofQFcHglMIDZR1ZGIL3f_DASRp7SLAYWeYfIrhio3HqdZMOQk8NR6iWbpsRS-rYBH0cnMNJNnKGTAHZWyl-4E06PqEsvT8e2g3pRkZAO-wqWZZgQ-Ns_mXv_MjLqv5UITAPZAHJz0S1S9-Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\" : \"tache\",\n\"description\": \"cest une tache\",\n\"cost\": 30}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/colocation/1/task",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"colocation",
+								"1",
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getStatus",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhYWEifQ.hb-wWlbCzEjiyvU6lI0O-qXWxDVez-FEGEQ-e6aMwYndgPML2T4wYXeMH572Q1iepJRLtXBTvfXpyLopkDw2ulryOosJcpTu6yMUYQ0bpMuoicE_G5T1zLlKBI-3WnfvU9gC4cNFn7aDnIy-OnFFrbRsrK5PVh1nfIdTcXdOhXYxFH7evIZpMMXamg5KA8pvwuCtSG4UEiTzdvzXF2Btx6QPi_7L4EZz6wZLfOQaYlca9_EnVCyqw4IQC6zP-tvA-0zbuTl1zfnKOslWOL3T6uG7LSA7aZM_XOvcpSrU9Sfms59KZ8opvaZm-Q8sWAveuz-sZ8VYcyJwl6KSD0WnLQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/task/8/state",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"task",
+								"8",
+								"state"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vote add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhYWEifQ.J7aD1tbN5Cw7iwepwpZnpPd36ODakJ-OLRiAp-g59MWNe9oJfOTbxDT1t7w4jdYP-57gjKhFHQ7vDVFLGhekxXVuYPrqB9sP_PWkwG6x4axr-LUElS59vYy4X0euSuyIbEu8PVhG_9EvapWp1I8QkjkaIHrCp8xWflnku7saSyxuyc_d28wwbqkO-bIO7awpOYxpPa12Ad8QYgyV4vAjHu9ow-pFjrgK9mNQDzoqvN4TktJVtEEVtE7sHI35zzI1MCcnpNPT0Ix1Ouhid6B7SWgKMEfKpKcPkCwnka2v2ZmNRXtKGtWIkxVAarYO6v_9yfXtfh_gldcXCXAR8GoLFA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/task/8/voteAdd/0",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"task",
+								"8",
+								"voteAdd",
+								"0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "service",
+			"item": [
+				{
+					"name": "declare service",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhYWEifQ.cQMnpksA-OoGjOUk90Euwe5_telACObaGn_Vs69gILnHl-D4nmLkW5yJuN6hKDhi21qfjjoXZNQv3nZ7j9gxZS4WoOX2nz_Ykm1rYP74Xaqqmve0qlLA9BNLED0Xtn6xjA1ewFyuLbyDSTJ3qzXV9PP7Rq0keC4h88fbN0w3OduAaKss935XR2f7BbB1ItIGphe4DibwaEISomQqLQAvvLF99L3h8Kt6S3LsqtrJ3ZYihPiiQ-9gIZSYkWuPcqxwsGoVyLCLkX22I0civ5H0hWlrVgbvR7W2MRquDB0NCed5T8qAPaYalNM4-QU5bswsoz82OOPj3PPgvbHQV0VR8Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"email\":\"ttt\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/task/8/",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"task",
+								"8",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list services",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0dHQifQ.hDnNN0PdHxadk6TOioAYXvcLXtTdDWbwwaU6TxDAe-CBPhc0ugQSlr7xhqGPzRZW2by5rLGjdD_miBaBJrwEQNAptRq3pXOOAJDcZ9w24eh3SibyHppUKPK69bkCFy0QLBwVa-vpmqU3YtM11kvHcmXtluJRV6PUiCC7baejHtiLBQL3IB0GxxLKGlZrbPNP34j1_ZgP1YzZ_XbuRT2MqgwQEb6ihzZkIMfV_rqp66vdkklFGVyHNO1g4OpQdafKB4wS8pfBCqOFaedGT5IjO_WnZmTvRrSvW-gU31NGc-Xk16DJDEV-Aq09UmSb2EIR43GyGYTyswYsZCXfoHvykA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/service/colocation/1",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"service",
+								"colocation",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate service",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0dHQifQ.ZGg-9kpBRZPXGtGyI3SpieRxH27kg_vjt2nEL2A5zLAgvGd5cXDHgP2F4eD3Q4jkFg7Rf8Tkg7UWFNtKQHsa3vdHS3BP-6h7C6aqlEik_vhFQ_XrMrXowAS2En-W-eBfCgs-Slvvfc_9h6S2_vDefjSpXhnWNKj-5EXSDoiBNLGajmK14TqRONW6ZDjp7UaZoVEMMYcNzQYPO4toYWHWdmCvu65cVT4TEZPPW7d3YN6qZKR_dTOgUDtX866_HM85xabQQh7MG0R-FbMDCyJI1-J3MYfHPRN6Xun_tQvSDE1EWlnKTqTkywhcVGdKZxJbYx1hj88I_R78LrIHjNorKw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/lp1_shareloc_dm/shareloc_api/service/1/true",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"lp1_shareloc_dm",
+								"shareloc_api",
+								"service",
+								"1",
+								"true"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
