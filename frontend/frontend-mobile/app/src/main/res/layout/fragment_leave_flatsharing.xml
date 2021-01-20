@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="16sp"
-            android:text="To be able to delete it, you need to be the last in the flatsharing" />
+            android:text="To be able to delete it, you need to be a manager" />
 
     </LinearLayout>
 

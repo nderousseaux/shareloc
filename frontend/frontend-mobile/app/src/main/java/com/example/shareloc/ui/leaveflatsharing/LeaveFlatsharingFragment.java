@@ -17,7 +17,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.shareloc.FragWhoami;
 import com.example.shareloc.MainActivity;
 import com.example.shareloc.R;
 import com.example.shareloc.models.Flatsharing;

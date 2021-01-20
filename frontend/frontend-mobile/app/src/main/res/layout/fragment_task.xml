@@ -6,13 +6,13 @@
     android:backgroundTint="#FFA000"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.test.TestFragment">
+    tools:context=".ui.task.TaskFragment">
 
     <TextView
         android:id="@+id/tvTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="This is test fragment"/>
+        android:text="This is task fragment"/>
 
 </LinearLayout>
