@@ -12,6 +12,7 @@ const Menu = () => {
 			<li>
         		Connected as {user.firstname} {user.lastname} <button onClick={signout}>Signout</button>
       		</li>
+			<li><Link to="/coloc">Changer de coloc</Link></li>
 		</> : null
 		}
 		{!user ? <>

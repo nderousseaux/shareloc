@@ -9,6 +9,7 @@ import { AuthProvider } from "./Auth";
 
 import {Signin} from './components/Signin';
 import {Signup} from './components/Signup';
+import {Coloc} from './components/Coloc';
 
 const queryCache = new QueryCache({
     defaultConfig: {
@@ -38,6 +39,9 @@ const Main = () => {
                     </Route>
                     <Route exact path="/signup">
                         <Signup />
+                    </Route>
+                    <Route exact path="/coloc">
+                        <Coloc />
                     </Route>
                     <Redirect to="/" />
                 </Switch>

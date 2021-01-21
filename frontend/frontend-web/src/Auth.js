@@ -1,5 +1,7 @@
 import { useEffect, useState, createContext, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { url_prefix, headersApi} from './fetch_utils';
+
 
 let AuthContext = createContext();
 
@@ -9,11 +11,7 @@ export let AuthProvider = ({ children }) => {
     let [userCheck, setUserCheck] = useState(true);
     let [error, setError] = useState(null);
     let history = useHistory();
-    const url_prefix = "http://localhost:8080/lp1_shareloc_dm/shareloc_api";
-    const headersApi = {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-    };
+   
 
     let signout = () => {
         setUser(null);
