@@ -6,8 +6,8 @@ public class Flatsharing {
     private String name;
 
     public Flatsharing (int id, String name) {
-        this.id = (id);
-        this.name = (name);
+        this.id = id;
+        this.name = name;
     }
 
     public int getId() {
