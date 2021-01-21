@@ -1,7 +1,6 @@
 package com.example.shareloc.ui.task;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +10,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.shareloc.FragWhoami;
 import com.example.shareloc.MainActivity;
 import com.example.shareloc.R;
 import com.example.shareloc.models.Task;
+import com.example.shareloc.volley.JsonNoResponseRequest;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.example.shareloc.Api.SERVER_URL;
 
 public class CustomListViewTaskAdapter extends ArrayAdapter {
@@ -60,10 +56,13 @@ public class CustomListViewTaskAdapter extends ArrayAdapter {
 
         TextView tvTaskRowStatut = rowView.findViewById(R.id.tvTaskRowStatut);
         Button btnTaskRowService = rowView.findViewById(R.id.btnTaskRowService);
-        Button btnTaskRowVoteAgree = rowView.findViewById(R.id.btnTaskRowVoteAgree);
+        Button btnTaskRowVoteAgree = rowView.findViewById(R.id.btnTaskVoteAgree);
         Button btnTaskVoteDisagree = rowView.findViewById(R.id.btnTaskVoteDisagree);
         // Lance la requête pour récupérer le statut de la tache et mettre à jour l'affichage des boutons
         getTaskStatut(taskRow.getId(), tvTaskRowStatut, btnTaskRowService, btnTaskRowVoteAgree, btnTaskVoteDisagree);
+
+        rowView.findViewById(R.id.btnTaskVoteAgree).setOnClickListener(v -> clickVote(taskRow, 1)); // 1 = vote pour
+        rowView.findViewById(R.id.btnTaskVoteDisagree).setOnClickListener(v -> clickVote(taskRow, 0)); // 0 = vote contre
 
         return rowView;
     }
@@ -104,6 +103,34 @@ public class CustomListViewTaskAdapter extends ArrayAdapter {
             }
         }, error -> {
             Log.e("error TaskStatut", error.toString());
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+        queue.add(request);
+    }
+
+    public void clickVote(Task t, int vote) {
+        String token = ((MainActivity)activity).getToken();
+        int idFlatsharing = ((MainActivity)activity).getSelectedFlatsharing().getId();
+        String url = SERVER_URL + "task/" + t.getId() + "/voteAdd/" + vote;
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        JsonObjectRequest request = new JsonNoResponseRequest(Request.Method.PUT, url, null, response -> {
+            Log.e("success Vote", response == null ? "null" : response.toString());
+
+            if(vote == 1) Toast.makeText(getContext(), "You agree for task " + t.getName(), Toast.LENGTH_SHORT).show();
+            else if(vote == 0) Toast.makeText(getContext(), "You disagree for task " + t.getName(), Toast.LENGTH_SHORT).show();
+
+            // On réactualise le fragement
+            fragment.resetView();
+        }, error -> {
+            Log.e("error Vote", error.toString());
+            Toast.makeText(getContext(), "You already voted", Toast.LENGTH_SHORT).show();
         }) {
             @Override
             public Map<String, String> getHeaders() {

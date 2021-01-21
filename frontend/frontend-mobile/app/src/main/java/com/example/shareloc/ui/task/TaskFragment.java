@@ -18,8 +18,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.shareloc.MainActivity;
 import com.example.shareloc.R;
 import com.example.shareloc.models.Task;
-import com.example.shareloc.models.UserBis;
-import com.example.shareloc.ui.user.CustomListViewUserAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;

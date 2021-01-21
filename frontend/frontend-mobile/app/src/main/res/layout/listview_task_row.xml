@@ -80,7 +80,7 @@
             android:textSize="14sp" />
 
         <Button
-            android:id="@+id/btnTaskRowVoteAgree"
+            android:id="@+id/btnTaskVoteAgree"
             android:layout_width="105dp"
             android:layout_height="wrap_content"
             android:gravity="center"
