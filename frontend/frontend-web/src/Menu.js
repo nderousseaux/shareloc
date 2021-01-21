@@ -16,6 +16,7 @@ const Menu = () => {
 		}
 		{!user ? <>
 			<li><Link to="/signin">Se connecter</Link></li>
+			<li><Link to="/signup">Créer un compte</Link></li>
 		</> : null
 		}
 		

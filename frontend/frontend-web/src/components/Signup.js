@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import { useQuery, useQueryCache, useMutation } from 'react-query';
 
 import { useAuth } from "../Auth";
 
@@ -14,7 +12,7 @@ let Signup = () => {
   
     let handleSubmit = (e) => {
       e.preventDefault();
-      signin(email, firstname, lastname, password)
+      signup(email, firstname, lastname, password)
     };
   
     return <>

@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import { useQuery, useQueryCache, useMutation } from 'react-query';
 
 import { useAuth } from "../Auth";
 

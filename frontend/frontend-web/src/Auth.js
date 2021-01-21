@@ -38,6 +38,20 @@ export let AuthProvider = ({ children }) => {
         });
     };
 
+    let signup= (username, firstname, lastname, password) => {
+        return fetch(`${url_prefix}/signup?email=${username}&password=${password}&firstname=${firstname}&lastname=${lastname}`, {
+            headers: headersApi,
+            method: "PUT"
+        })
+        .then(checkStatus)
+        .then(() => {
+            history.push("/signin")
+        })
+        .catch(() => {
+            setError("L'email est déjà pris")
+        });
+    };
+
     let checkStatus = (response) => {
         if (response.ok) {
             setError(null)
@@ -61,7 +75,7 @@ export let AuthProvider = ({ children }) => {
           .then(user => {
             setUser(user);
           })
-          .catch((err) => {
+          .catch(() => {
             setUser(null);
           });
     }
@@ -78,7 +92,7 @@ export let AuthProvider = ({ children }) => {
   return userCheck ? (
     "Checking authentication..."
   ) : (
-    <AuthContext.Provider value={{user, signin, signout, error, history}}>
+    <AuthContext.Provider value={{user, signin, signup, signout, error, history}}>
       {children}
       {error ? <p style={{color:'red'}}>Erreur : {error}</p> : null}
     </AuthContext.Provider>

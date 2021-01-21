@@ -8,6 +8,7 @@ import Menu from './Menu';
 import { AuthProvider } from "./Auth";
 
 import {Signin} from './components/Signin';
+import {Signup} from './components/Signup';
 
 const queryCache = new QueryCache({
     defaultConfig: {
