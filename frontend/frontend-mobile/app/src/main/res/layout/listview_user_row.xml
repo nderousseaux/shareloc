@@ -64,7 +64,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="14sp"
-            android:text="Already manager, can't remove this member"/>
+            android:text="Is manager"/>
 
     </LinearLayout>
 

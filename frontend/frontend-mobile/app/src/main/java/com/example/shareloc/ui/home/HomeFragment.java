@@ -123,8 +123,8 @@ public class HomeFragment extends Fragment {
         }, error -> {
             Log.e("error getFlatsharings", error.toString());
 
-            // On affiche un message d'erreur
-            Toast.makeText(getContext(), "Error : no flatsharings or could not get them", Toast.LENGTH_SHORT).show();
+            // On affiche un message
+            Toast.makeText(getContext(), "No flatsharings, create one or get invited by someone", Toast.LENGTH_SHORT).show();
         }) {
             // On met le token dans le header de la requête
             @Override

@@ -51,20 +51,17 @@ public class CustomListViewUserAdapter extends ArrayAdapter {
         tvUserRowName.setText(userRow.toString());
         tvUserRowEmail.setText(userRow.getEmail());
 
-        // Si l'utilisateur de l'application est manager
-        if(isManager(User.getInstance().getEmail())) {
-            // Si l'utilisateur de la ligne courante est manager, on affiche un label et on laisse les boutons cachés
-            if(isManager(userRow.getEmail())) {
-                rowView.findViewById(R.id.layoutLabels).setVisibility(View.VISIBLE);
-            }
-            // Si l'utilisateur de la ligne courante n'est pas manager, on affiche les boutons
-            else {
-                rowView.findViewById(R.id.layoutButtons).setVisibility(View.VISIBLE);
-                // Ajouter les réactions aux cliques des boutons ici
-                rowView.findViewById(R.id.btnUserRowManager).setOnClickListener(v -> clickPromoteManager(userRow.getEmail()));
-                rowView.findViewById(R.id.btnUserRowRemove).setOnClickListener(v -> clickRemoveFromFlatsharing(userRow.getEmail()));
-            }
+        // Si l'utilisateur de la ligne courante est manager, on affiche un label
+        if(isManager(userRow.getEmail())) {
+            rowView.findViewById(R.id.layoutLabels).setVisibility(View.VISIBLE);
         }
+        // Si l'utilisateur de l'application est manager et que l'utilisateur de la ligne courante est un simple membre, on affiche les boutons
+        if(isManager(User.getInstance().getEmail()) && !isManager(userRow.getEmail())) {
+            rowView.findViewById(R.id.layoutButtons).setVisibility(View.VISIBLE);
+            rowView.findViewById(R.id.btnUserRowManager).setOnClickListener(v -> clickPromoteManager(userRow.getEmail()));
+            rowView.findViewById(R.id.btnUserRowRemove).setOnClickListener(v -> clickRemoveFromFlatsharing(userRow.getEmail()));
+        }
+
         return rowView;
     }
 
