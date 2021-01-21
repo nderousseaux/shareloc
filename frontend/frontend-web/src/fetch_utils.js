@@ -10,6 +10,6 @@ export const checkStatus = (res) => {
 
 export const url_prefix = "http://localhost:8080/lp1_shareloc_dm/shareloc_api";
 export const headersApi = {
-	Accept: "application/json",
+	"Accept": "*/*",
 	"Content-Type": "application/json",
 };

@@ -67,11 +67,11 @@ public class ControllerTask {
 		int nbPersonne = ControllerColocation.getUserFromColoc(c.getId()).size();
 		
 	    //Si moins de la moitié des personnes ont voté pour et moins de la moitée des personnes ont voté contre, le status est VOTING CREATING
-		if(nbVoteAddTaskPour(t) <= nbPersonne/2 &&  nbVoteAddTaskContre(t) < nbPersonne/2) {
+		if(((float)(nbVoteAddTaskPour(t)) <= ((float)(nbPersonne)/2)) && (((float)nbVoteAddTaskContre(t)) < ((float)(nbPersonne)/2))) {
 			return "VOTINGCREATING";
 		}
 		//Si au moins la moitié des personnes ont voté contre, le status est REFUSE
-		else if(nbVoteAddTaskContre(t)>=nbPersonne/2){
+		else if(((float)nbVoteAddTaskContre(t))>= ((float)(nbPersonne)/2)){
 			return "REFUSE";
 		}
 		else {

@@ -136,7 +136,7 @@ public class Colocation {
 	@SigninNeeded
 	@Path("/{idColoc}/user")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUsersByColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc, models.Colocation colocation) {
+	public Response getUsersByColoc(@Context SecurityContext security, @PathParam("idColoc") int idColoc) {
 		
 		models.Colocation coloc = ControllerColocation.getColocation(idColoc);
 		if (coloc == null)
