@@ -26,8 +26,8 @@
         <ListView
             android:id="@+id/lvUserList"
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="380dp" />
+            android:layout_height="380dp"
+            android:gravity="center" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
