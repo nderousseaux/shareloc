@@ -35,6 +35,9 @@ const Main = () => {
                     <Route exact path="/signin">
                         <Signin />
                     </Route>
+                    <Route exact path="/signup">
+                        <Signup />
+                    </Route>
                     <Redirect to="/" />
                 </Switch>
             </AuthProvider>

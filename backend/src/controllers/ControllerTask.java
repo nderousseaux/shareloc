@@ -81,12 +81,12 @@ public class ControllerTask {
 	}
 
 	
-	public static List<Task> findByStatus(String s){
+	public static List<Task> findByStatus(String s, Colocation c){
 		List<Task> l = daoTask.findAll();
 		List<Task> retour = new ArrayList<Task>();
 		
 		for(Task t: l) {
-			if(getStatus(t).equals(s)) {
+			if(getStatus(t).equals(s) && t.getColoc().getId() == c.getId()) {
 				retour.add(t);
 			}
 		}

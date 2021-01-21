@@ -253,7 +253,7 @@ public class Colocation {
 		User user = ControllerUser.getUser(security.getUserPrincipal().getName());
 
 		if(ControllerColocation.isInColocation(user, coloc)) {
-			return Response.ok().entity(ControllerTask.findByStatus(state)).build();
+			return Response.ok().entity(ControllerTask.findByStatus(state, coloc)).build();
 
 		}
 		return Response.status(Status.UNAUTHORIZED).build();
