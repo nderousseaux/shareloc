@@ -1,5 +1,6 @@
 package com.example.shareloc.ui.leaveflatsharing;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -69,11 +70,10 @@ public class LeaveFlatsharingFragment extends Fragment {
             // On supprime la collocation de l'activité
             ((MainActivity)getActivity()).setSelectedFlatsharing(null);
 
-            // On redirige sur l'accueil
-            FragmentManager manager = getParentFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.nav_host_fragment, new HomeFragment());
-            transaction.commit();
+            // On redémarre l'activité principale, cela affiche l'accueil
+            Intent mainActivity = new Intent(getActivity(), MainActivity.class);
+            startActivity(mainActivity);
+            getActivity().finish();
         }, error -> {
             Log.e("error LeaveFlatsharing", error.toString());
             Toast.makeText(getContext(), "You can't leave the flatsharing", Toast.LENGTH_SHORT).show();
@@ -102,11 +102,10 @@ public class LeaveFlatsharingFragment extends Fragment {
             // On supprime la collocation de l'activité
             ((MainActivity)getActivity()).setSelectedFlatsharing(null);
 
-            // On redirige sur l'accueil
-            FragmentManager manager = getParentFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.nav_host_fragment, new HomeFragment());
-            transaction.commit();
+            // On redémarre l'activité principale, cela affiche l'accueil
+            Intent mainActivity = new Intent(getActivity(), MainActivity.class);
+            startActivity(mainActivity);
+            getActivity().finish();
         }, error -> {
             Log.e("error DeleteFlatsharing", error.toString());
             Toast.makeText(getContext(), "You can't delete the flatsharing", Toast.LENGTH_SHORT).show();
